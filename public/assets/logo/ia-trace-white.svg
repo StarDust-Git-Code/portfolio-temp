@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 60" fill="none">
+  <!-- IA monogram â€” circuit-trace construction with via pads â€” Irshad Ahamed -->
+  <!-- copper traces (stop short of pad rings so the donut holes read) -->
+  <g stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M13.5 16.9 V48.1"/>
+    <path d="M31.7 48.6 L45 12 L58.3 48.6"/>
+    <path d="M35 39.5 H40.2 M49.8 39.5 H55"/>
+  </g>
+  <!-- via pads (donuts) + crossbar test point -->
+  <g stroke="#ffffff" stroke-width="3" fill="none">
+    <circle cx="13.5" cy="12" r="3.4"/>
+    <circle cx="13.5" cy="53" r="3.4"/>
+    <circle cx="30" cy="53" r="3.4"/>
+    <circle cx="60" cy="53" r="3.4"/>
+    <circle cx="45" cy="39.5" r="3.2"/>
+  </g>
+</svg>
+

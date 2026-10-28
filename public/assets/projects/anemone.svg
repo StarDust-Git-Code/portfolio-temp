@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" fill="none">
+  <!-- Project Anemone — sonar/telemetry schematic (light monochrome) -->
+  <rect width="900" height="675" fill="#efeeec"/>
+  <defs>
+    <pattern id="hatch" width="11" height="11" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="11" stroke="#0a0a0a" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="675" fill="url(#hatch)"/>
+
+  <!-- sonar rings -->
+  <g stroke="#0a0a0a" fill="none" stroke-width="1.2">
+    <circle cx="450" cy="400" r="70"  stroke-opacity="0.30"/>
+    <circle cx="450" cy="400" r="120" stroke-opacity="0.22" stroke-dasharray="4 6"/>
+    <circle cx="450" cy="400" r="170" stroke-opacity="0.16" stroke-dasharray="4 6"/>
+    <circle cx="450" cy="400" r="220" stroke-opacity="0.10" stroke-dasharray="4 6"/>
+  </g>
+
+  <!-- sweeping beam -->
+  <g opacity="0.35">
+    <path d="M450 400 L670 280 A180 180 0 0 1 640 430 Z" fill="#0a0a0a" fill-opacity="0.05"/>
+    <line x1="450" y1="400" x2="672" y2="278" stroke="#0a0a0a" stroke-opacity="0.35" stroke-width="1.2"/>
+  </g>
+
+  <!-- contacts -->
+  <g fill="#0a0a0a">
+    <path d="M560 330 l10 -14 10 14 z" fill-opacity="0.55"/>
+    <path d="M610 470 l10 -14 10 14 z" fill-opacity="0.35"/>
+    <path d="M330 480 l10 -14 10 14 z" fill-opacity="0.30"/>
+  </g>
+
+  <!-- fishing boat glyph at center -->
+  <g transform="translate(450 400)">
+    <path d="M-52 0 H52 L34 22 H-38 Z" fill="#0a0a0a" fill-opacity="0.85"/>
+    <rect x="-10" y="-30" width="6" height="30" fill="#0a0a0a" fill-opacity="0.85"/>
+    <path d="M-4 -28 C 14 -34 22 -14 2 -8 Z" fill="#0a0a0a" fill-opacity="0.75"/>
+    <path d="M-6 -10 C -18 -18 -24 -2 -6 2 Z" fill="#0a0a0a" fill-opacity="0.5"/>
+  </g>
+
+  <!-- depth ticks -->
+  <g stroke="#0a0a0a" stroke-opacity="0.35" stroke-width="1.2">
+    <line x1="60" y1="140" x2="60" y2="540"/>
+    <line x1="60" y1="200" x2="72" y2="200"/>
+    <line x1="60" y1="290" x2="72" y2="290"/>
+    <line x1="60" y1="380" x2="72" y2="380"/>
+    <line x1="60" y1="470" x2="72" y2="470"/>
+  </g>
+  <text x="84" y="205" font-family="ui-monospace, monospace" font-size="13" fill="#0a0a0a" fill-opacity="0.4">-12m</text>
+  <text x="84" y="295" font-family="ui-monospace, monospace" font-size="13" fill="#0a0a0a" fill-opacity="0.4">-36m</text>
+  <text x="84" y="385" font-family="ui-monospace, monospace" font-size="13" fill="#0a0a0a" fill-opacity="0.4">-84m</text>
+
+  <!-- telemetry box -->
+  <g font-family="ui-monospace, monospace" font-size="14" fill="#0a0a0a" fill-opacity="0.5">
+    <text x="650" y="120">FN-044 · GRID 12.9742</text>
+    <text x="650" y="144">RSSI 87% · SWELL 1.4m</text>
+  </g>
+
+  <!-- corner marks -->
+  <g stroke="#0a0a0a" stroke-opacity="0.4" stroke-width="1.4">
+    <path d="M40 60 V40 H60" />
+    <path d="M860 60 V40 H840" />
+    <path d="M40 615 V635 H60" />
+    <path d="M860 615 V635 H840" />
+  </g>
+</svg>

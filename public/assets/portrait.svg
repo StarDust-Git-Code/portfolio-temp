@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+  <!-- Placeholder portrait silhouette — REPLACE ME with /assets/portrait.png (your real cutout) -->
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6f6d6a"/>
+      <stop offset="1" stop-color="#4a4845"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e2c2a"/>
+      <stop offset="1" stop-color="#181715"/>
+    </linearGradient>
+    <linearGradient id="hood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#232220"/>
+      <stop offset="1" stop-color="#121110"/>
+    </linearGradient>
+  </defs>
+  <!-- hair: oversized curly volume -->
+  <g fill="url(#hair)">
+    <circle cx="400" cy="300" r="150"/>
+    <circle cx="300" cy="330" r="90"/>
+    <circle cx="500" cy="330" r="90"/>
+    <circle cx="350" cy="230" r="95"/>
+    <circle cx="450" cy="230" r="95"/>
+    <circle cx="255" cy="285" r="60"/>
+    <circle cx="545" cy="285" r="60"/>
+  </g>
+  <!-- face -->
+  <g fill="url(#skin)">
+    <ellipse cx="400" cy="380" rx="105" ry="135"/>
+    <!-- ear -->
+    <path d="M505 395 q35 -10 35 25 q0 35 -30 30 z"/>
+    <!-- neck -->
+    <rect x="355" y="480" width="90" height="90" rx="30"/>
+  </g>
+  <!-- hoodie body -->
+  <path fill="url(#hood)" d="
+    M 60 1200
+    L 60 1020
+    Q 70 900 190 850
+    L 300 800
+    Q 320 700 355 610
+    L 355 560
+    L 445 560
+    L 445 610
+    Q 480 700 500 800
+    L 610 850
+    Q 730 900 740 1020
+    L 740 1200 Z"/>
+  <!-- hood opening -->
+  <path fill="#0c0b0a" d="M355 560 L445 560 Q450 640 400 655 Q350 640 355 560 Z"/>
+  <!-- drawstrings -->
+  <path stroke="#3a3835" stroke-width="8" stroke-linecap="round" fill="none" d="M370 630 q-15 70 -5 130"/>
+  <path stroke="#3a3835" stroke-width="8" stroke-linecap="round" fill="none" d="M430 630 q15 70 -5 130"/>
+  <!-- backpack straps -->
+  <path fill="#2b2a28" d="M190 940 q-25 120 -10 260 l70 0 q-15 -140 0 -260 z" opacity=".8"/>
+  <path fill="#2b2a28" d="M610 940 q25 120 10 260 l-70 0 q15 -140 0 -260 z" opacity=".8"/>
+</svg>
