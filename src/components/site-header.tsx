@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { IaMark } from "@/components/ia-mark";
+import { StarLogo } from "@/components/star-logo";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { GITHUB_PROFILE, LINKEDIN_PROFILE } from "@/data/profile";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
   { label: "Projects", href: "#work" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -160,8 +160,8 @@ export function SiteHeader() {
           className="group flex items-center gap-2.5 justify-self-start"
           aria-label="Irshad Ahamed — home"
         >
-          <IaMark className="size-6 text-foreground transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-          <span className="whitespace-nowrap text-[13px] font-semibold tracking-[0.22em] uppercase">
+          <StarLogo className="size-5 text-foreground transition-transform duration-500 group-hover:rotate-45" />
+          <span className="whitespace-nowrap text-[13px] font-semibold tracking-[0.2em] uppercase">
             Irshad Ahamed
           </span>
         </Link>
@@ -177,14 +177,13 @@ export function SiteHeader() {
               href={item.href}
               aria-current={active === item.label ? "page" : undefined}
               data-current={active === item.label}
-              className="group relative text-[15px] text-foreground/75 transition-colors duration-300 hover:text-foreground data-[current=true]:font-semibold data-[current=true]:text-foreground"
+              className="group relative flex flex-col items-center text-[14px] text-foreground/80 transition-colors duration-200 hover:text-foreground data-[current=true]:font-medium data-[current=true]:text-foreground"
             >
-              {item.label}
-              {/* active dot */}
+              <span>{item.label}</span>
+              {/* active dot underneath word */}
               <span
                 aria-hidden="true"
-                data-current={active === item.label}
-                className={`absolute left-1/2 top-[calc(100%+10px)] -translate-x-1/2 size-[5px] rounded-full bg-foreground transition-all duration-300 ${
+                className={`mt-1 size-1.5 rounded-full bg-foreground transition-all duration-300 ${
                   active === item.label
                     ? "opacity-100 scale-100"
                     : "opacity-0 scale-0"
@@ -194,10 +193,13 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* Right slot — desktop spacer / mobile hamburger */}
+        {/* Right slot — desktop availability badge / mobile hamburger */}
         <div className="justify-self-end">
-          {/* Desktop: optical centering spacer */}
-          <span aria-hidden="true" className="hidden md:inline" />
+          {/* Desktop: Available for new opportunities */}
+          <div className="hidden md:flex items-center gap-2.5 text-[13px] text-foreground/85 font-normal">
+            <span className="size-2 rounded-full bg-[#fa2b1d] heat-dot" />
+            <span>Available for new opportunities</span>
+          </div>
 
           {/* Mobile: Sheet hamburger */}
           <div className="md:hidden">
@@ -224,7 +226,7 @@ export function SiteHeader() {
                     className="flex items-center gap-2.5"
                     aria-label="Irshad Ahamed — home"
                   >
-                    <IaMark className="size-5 text-foreground" />
+                    <StarLogo className="size-5 text-foreground" />
                     <span className="text-[12px] font-semibold tracking-[0.22em] uppercase">
                       Irshad Ahamed
                     </span>

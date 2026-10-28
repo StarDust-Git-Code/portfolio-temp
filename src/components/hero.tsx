@@ -5,41 +5,27 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaXTwitter,
+  FaInstagram,
+} from "react-icons/fa6";
 import { SiteHeader } from "@/components/site-header";
-import { GITHUB_PROFILE, LINKEDIN_PROFILE, PROFILE } from "@/data/profile";
+import {
+  GITHUB_PROFILE,
+  LINKEDIN_PROFILE,
+  TWITTER_PROFILE,
+  INSTAGRAM_PROFILE,
+  PROFILE,
+} from "@/data/profile";
 
 const SOCIALS = [
   { label: "GitHub", href: GITHUB_PROFILE, Icon: FaGithub },
   { label: "LinkedIn", href: LINKEDIN_PROFILE, Icon: FaLinkedinIn },
+  { label: "Twitter", href: TWITTER_PROFILE, Icon: FaXTwitter },
+  { label: "Instagram", href: INSTAGRAM_PROFILE, Icon: FaInstagram },
 ] as const;
-
-function NameWord({
-  word,
-  align,
-  blend = false,
-}: {
-  word: string;
-  align: "left" | "right";
-  /** White text + difference blend: inverts over the dark portrait automatically */
-  blend?: boolean;
-}) {
-  return (
-    <span
-      data-split
-      aria-hidden="true"
-      className={`split-parent block text-[length:var(--text-hero)] font-extrabold whitespace-nowrap ${
-        blend ? "text-white" : "text-foreground"
-      }`}
-      style={{
-        letterSpacing: "var(--tracking-hero)",
-        textAlign: align,
-      }}
-    >
-      {word}
-    </span>
-  );
-}
 
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -63,10 +49,10 @@ export function Hero() {
       const portrait = root.querySelector("[data-portrait]");
       const corners = root.querySelectorAll("[data-reveal]");
 
-      // initial states (only when JS + fonts are ready — no-JS stays visible)
+      // Initial states
       gsap.set(chars, { yPercent: 118, opacity: 0 });
-      gsap.set(portrait, { opacity: 0, y: 60, scale: 0.985 });
-      gsap.set(corners, { opacity: 0, y: 18 });
+      gsap.set(portrait, { opacity: 0, y: 50, scale: 0.985 });
+      gsap.set(corners, { opacity: 0, y: 16 });
 
       const tl = gsap.timeline({
         defaults: { ease: "power4.out" },
@@ -84,7 +70,7 @@ export function Hero() {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1.4,
+          duration: 1.3,
           ease: "expo.out",
         },
         "-=0.6"
@@ -93,7 +79,7 @@ export function Hero() {
       tl.to(
         corners,
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 },
-        "-=1.1"
+        "-=1.0"
       );
     });
 
@@ -103,7 +89,7 @@ export function Hero() {
     };
   }, []);
 
-  /* Scroll-out parallax — targets wrappers/img (entrance anims target chars/portrait div) */
+  /* Scroll-out parallax */
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
@@ -121,10 +107,10 @@ export function Hero() {
             scrub: 0.6,
           },
         })
-        .to("[data-name-layer='irshad']", { y: -90, ease: "none" }, 0)
-        .to("[data-name-layer='ahamed']", { y: -140, ease: "none" }, 0)
-        .to("[data-portrait-img]", { y: 70, scale: 1.05, ease: "none" }, 0)
-        .to("[data-hero-fade]", { opacity: 0, y: -30, ease: "none" }, 0.15);
+        .to("[data-name-layer='irshad']", { y: -80, ease: "none" }, 0)
+        .to("[data-name-layer='ahamed']", { y: -120, ease: "none" }, 0)
+        .to("[data-portrait-img]", { y: 60, scale: 1.04, ease: "none" }, 0)
+        .to("[data-hero-fade]", { opacity: 0, y: -25, ease: "none" }, 0.15);
     }, rootRef);
 
     return () => ctx.revert();
@@ -134,7 +120,7 @@ export function Hero() {
     <section
       ref={rootRef}
       id="home"
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
+      className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-background"
       aria-label="Introduction"
     >
       <SiteHeader />
@@ -142,11 +128,13 @@ export function Hero() {
       <h1 className="sr-only">{PROFILE.title}</h1>
 
       {/* ================= PORTRAIT — z-10 (behind AHAMED, in front of IRSHAD) */}
-      <div className="absolute inset-0 z-10 flex justify-center" data-portrait>
-        {/* desktop portrait */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center"
+        data-portrait
+      >
+        {/* Desktop portrait */}
         <div
-          className="relative h-full hidden md:block"
-          style={{ transform: "translateX(7vw)" }}
+          className="relative hidden md:block h-[84vh] aspect-[900/1227] max-h-none"
           aria-hidden="true"
         >
           <Image
@@ -156,13 +144,13 @@ export function Hero() {
             priority
             draggable={false}
             data-portrait-img
-            className="!w-auto max-w-none object-contain object-bottom grayscale"
-            sizes="(min-width: 768px) 50vw, 0vw"
+            className="object-contain object-bottom grayscale contrast-[1.04]"
+            sizes="(min-width: 768px) 60vw, 0vw"
           />
         </div>
-        {/* mobile portrait */}
+        {/* Mobile portrait */}
         <div
-          className="relative h-[62%] w-full self-end md:hidden"
+          className="relative md:hidden h-[70vh] aspect-[900/1227] max-h-none"
           aria-hidden="true"
         >
           <Image
@@ -171,40 +159,84 @@ export function Hero() {
             fill
             draggable={false}
             data-portrait-img
-            className="!w-auto object-contain object-bottom grayscale"
-            sizes="80vw"
+            className="object-contain object-bottom grayscale contrast-[1.04]"
+            sizes="95vw"
           />
         </div>
       </div>
 
-      {/* ================= IRSHAD — z-0, BEHIND the portrait */}
+      {/* ================= IRSHAD — z-0, BEHIND portrait */}
+      {/* Desktop: left side, top-[36%] */}
       <div
-        className="absolute inset-x-0 top-[38%] z-0 md:top-[36%]"
+        className="hidden md:block absolute left-[4.5vw] top-[37%] z-0"
         data-name-layer="irshad"
       >
-        <div className="overflow-hidden px-[4.5vw]">
-          <NameWord word="IRSHAD" align="left" />
+        <div className="overflow-hidden">
+          <span
+            data-split
+            aria-hidden="true"
+            className="split-parent block text-[clamp(5rem,13.2vw,13.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-foreground select-none"
+          >
+            IRSHAD
+          </span>
+        </div>
+      </div>
+      {/* Mobile: top-[24%] behind hair */}
+      <div
+        className="md:hidden absolute inset-x-0 top-[23%] z-0"
+        data-name-layer="irshad"
+      >
+        <div className="overflow-hidden px-[5vw]">
+          <span
+            data-split
+            aria-hidden="true"
+            className="split-parent block text-[clamp(3.2rem,17vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-foreground select-none"
+          >
+            IRSHAD
+          </span>
         </div>
       </div>
 
-      {/* ================= AHAMED — z-20, IN FRONT of the portrait.
-          White glyphs + difference blend → black over the page, white over the photo. */}
+      {/* ================= AHAMED — z-20, IN FRONT of portrait */}
+      {/* White text + difference blend: inverts over dark neck, black over light background */}
+      {/* Desktop: right side, top-[53%] */}
       <div
         data-name-layer="ahamed"
-        className="pointer-events-none absolute inset-x-0 top-[50%] z-20 text-right mix-blend-difference md:top-[47%]"
+        className="hidden md:block pointer-events-none absolute left-[46vw] right-[4.5vw] top-[53%] z-20 mix-blend-difference text-right"
       >
-        <div className="overflow-hidden px-[2vw]">
-          <NameWord word="AHAMED" align="right" blend />
+        <div className="overflow-hidden">
+          <span
+            data-split
+            aria-hidden="true"
+            className="split-parent block text-[clamp(5rem,13.2vw,13.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white select-none"
+          >
+            AHAMED
+          </span>
+        </div>
+      </div>
+      {/* Mobile: top-[60%] across hoodie below chin */}
+      <div
+        data-name-layer="ahamed"
+        className="md:hidden pointer-events-none absolute inset-x-0 top-[60%] z-20 mix-blend-difference text-right"
+      >
+        <div className="overflow-hidden px-[5vw]">
+          <span
+            data-split
+            aria-hidden="true"
+            className="split-parent block text-[clamp(3.2rem,17vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white select-none"
+          >
+            AHAMED
+          </span>
         </div>
       </div>
 
-      {/* ================= Eyebrow tagline — top-left (desktop only) */}
+      {/* ================= Eyebrow tagline — top-left (desktop) */}
       <div
         data-reveal
         data-hero-fade
-        className="absolute left-[4.5vw] top-[17%] z-30 hidden md:block"
+        className="absolute left-[4.5vw] top-[18%] z-30 hidden md:block"
       >
-        <p className="max-w-[15rem] text-[13px] font-medium uppercase leading-[1.75] tracking-[0.18em] text-foreground/90">
+        <p className="max-w-[15rem] text-[12px] font-semibold uppercase leading-[1.65] tracking-[0.16em] text-foreground">
           Tech innovator
           <br />
           building for a
@@ -213,17 +245,60 @@ export function Hero() {
         </p>
         <span
           aria-hidden="true"
-          className="mt-6 block h-px w-12 bg-foreground/70"
+          className="mt-4 block h-[1.5px] w-10 bg-foreground/70"
         />
       </div>
 
-      {/* ================= Mobile bottom bar — shown only on mobile, z-30 */}
+      {/* ================= Social rail — bottom-left (desktop) */}
       <div
         data-reveal
-        className="absolute bottom-0 inset-x-0 z-30 flex md:hidden items-end justify-between px-[5vw] pb-8"
+        data-hero-fade
+        className="absolute bottom-[6%] left-[4.5vw] z-30 hidden md:block"
       >
-        {/* Social icons */}
-        <ul className="flex items-center gap-3">
+        <ul className="flex flex-col gap-3.5">
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-3 text-[14px] text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <Icon
+                  className="size-[15px] text-foreground/80 transition-transform duration-200 group-hover:scale-110"
+                  aria-hidden="true"
+                />
+                <span className="font-normal tracking-[0.02em]">{label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* ================= Discipline + Headline — bottom-right (desktop) */}
+      <div
+        data-reveal
+        data-hero-fade
+        className="absolute bottom-[6%] right-[4.5vw] z-30 hidden text-left md:block"
+      >
+        <p className="font-tech text-[11.5px] uppercase leading-[1.8] tracking-[0.14em] text-foreground/75">
+          // AI · EMBEDDED · IOT
+          <br />
+          ROBOTICS · DIGITAL PRODUCTS
+        </p>
+        <p className="mt-3.5 font-sans text-[clamp(1.75rem,2.5vw,2.5rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground">
+          Tech Innovator
+          <br />
+          &amp; Builder
+        </p>
+      </div>
+
+      {/* ================= Mobile bottom bar */}
+      <div
+        data-reveal
+        className="absolute bottom-0 inset-x-0 z-30 flex md:hidden items-end justify-between px-[5vw] pb-7"
+      >
+        <ul className="flex items-center gap-3.5">
           {SOCIALS.map(({ label, href, Icon }) => (
             <li key={label}>
               <a
@@ -231,90 +306,20 @@ export function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="flex size-9 items-center justify-center rounded-full border border-foreground/20 bg-background/60 text-foreground/75 transition-all hover:border-foreground/50 hover:text-foreground"
+                className="flex size-8 items-center justify-center rounded-full border border-foreground/20 bg-background/60 text-foreground/80 transition-colors hover:text-foreground"
               >
-                <Icon className="size-[14px]" aria-hidden="true" />
+                <Icon className="size-[13px]" aria-hidden="true" />
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Discipline tags */}
-        <p className="font-tech text-[10px] uppercase leading-[1.9] tracking-[0.14em] text-foreground/60 text-right">
-          Edge AI · Embedded
+        <p className="font-tech text-[10px] uppercase leading-[1.8] tracking-[0.14em] text-foreground/60 text-right">
+          AI · Embedded · IoT
           <br />
-          Android · Linux
+          Robotics · Products
         </p>
       </div>
-
-      {/* ================= Social rail — bottom-left (desktop) */}
-      <div
-        data-reveal
-        data-hero-fade
-        className="absolute bottom-[8%] left-[4.5vw] z-30 hidden md:block"
-      >
-        <ul className="flex flex-col gap-4">
-          {SOCIALS.map(({ label, href, Icon }) => (
-            <li key={label}>
-              <a
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-4 text-[14px] text-foreground/75 transition-colors hover:text-foreground"
-              >
-                <span className="flex size-8 items-center justify-center rounded-full border border-foreground/15 bg-background/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-foreground/60">
-                  <Icon className="size-[15px]" aria-hidden="true" />
-                </span>
-                <span className="link-underline">{label}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* ================= Discipline + signature — bottom-right (desktop) */}
-      <div
-        data-reveal
-        data-hero-fade
-        className="absolute bottom-[8%] right-[4.5vw] z-30 hidden text-right md:block"
-      >
-        <p className="font-tech text-[12.5px] uppercase leading-[1.9] tracking-[0.16em] text-foreground/80">
-          <span className="font-body text-foreground/60">{"//"}</span> EDGE AI ·
-          EMBEDDED · IOT
-          <br />
-          <span className="font-body text-foreground/60">{"//"}</span> ANDROID ·
-          LINUX · ROBOTICS
-        </p>
-        <p className="mt-5 font-signature text-[clamp(1.5rem,2.4vw,2.1rem)] font-medium leading-[1.25] text-foreground">
-          Tech Innovator
-          <br />
-          &amp; Builder
-        </p>
-        <p className="mt-5 flex items-center justify-end gap-2 text-[13px] text-foreground/60">
-          Currently building —
-          <span className="font-medium tracking-[0.08em] uppercase text-foreground/90">
-            STARBASE
-          </span>
-        </p>
-      </div>
-
-      {/* ================= Scroll cue */}
-      <div
-        data-reveal
-        data-hero-fade
-        className="absolute bottom-[3.2%] left-1/2 z-30 hidden -translate-x-1/2 md:block"
-        aria-hidden="true"
-      >
-        <span className="block h-9 w-px overflow-hidden bg-foreground/20">
-          <span className="block h-3 w-px bg-foreground animate-[scrollcue_1.8s_ease-in-out_infinite]" />
-        </span>
-      </div>
-      <style>{`
-        @keyframes scrollcue {
-          0% { transform: translateY(-100%); }
-          60%, 100% { transform: translateY(300%); }
-        }
-      `}</style>
     </section>
   );
 }

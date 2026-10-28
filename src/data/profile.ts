@@ -5,6 +5,8 @@
 export const GITHUB_PROFILE = "https://github.com/StarDust-Git-Code";
 export const LINKEDIN_PROFILE =
   "https://www.linkedin.com/in/irshad-a-1915a2267/";
+export const TWITTER_PROFILE = "https://x.com";
+export const INSTAGRAM_PROFILE = "https://instagram.com";
 export const LINKEDIN_ACTIVITY = `${LINKEDIN_PROFILE}recent-activity/all/`;
 export const SENTINELAI_SUBMISSION =
   "https://devpost.com/software/sentinelai-n9y6fe";
