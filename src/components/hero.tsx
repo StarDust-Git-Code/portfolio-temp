@@ -128,13 +128,14 @@ export function Hero() {
       <h1 className="sr-only">{PROFILE.title}</h1>
 
       {/* ================= PORTRAIT — z-10 (behind AHAMED, in front of IRSHAD) */}
+      {/* Zoomed in: head and upper chest dominate the center, stomach/waist clipped below */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-10 flex justify-center overflow-hidden"
         data-portrait
       >
-        {/* Desktop portrait */}
+        {/* Desktop portrait: h-[116vh], anchored near top so head is 45% of viewport */}
         <div
-          className="relative hidden md:block h-[84vh] aspect-[900/1227] max-h-none"
+          className="relative hidden md:block h-[116vh] aspect-[900/1227] top-[8.5vh] max-h-none"
           aria-hidden="true"
         >
           <Image
@@ -144,13 +145,13 @@ export function Hero() {
             priority
             draggable={false}
             data-portrait-img
-            className="object-contain object-bottom grayscale contrast-[1.04]"
-            sizes="(min-width: 768px) 60vw, 0vw"
+            className="object-contain object-top grayscale contrast-[1.04]"
+            sizes="(min-width: 768px) 70vw, 0vw"
           />
         </div>
-        {/* Mobile portrait */}
+        {/* Mobile portrait: zoomed to upper chest */}
         <div
-          className="relative md:hidden h-[70vh] aspect-[900/1227] max-h-none"
+          className="relative md:hidden h-[98vh] aspect-[900/1227] top-[10vh] max-h-none"
           aria-hidden="true"
         >
           <Image
@@ -159,38 +160,38 @@ export function Hero() {
             fill
             draggable={false}
             data-portrait-img
-            className="object-contain object-bottom grayscale contrast-[1.04]"
-            sizes="95vw"
+            className="object-contain object-top grayscale contrast-[1.04]"
+            sizes="100vw"
           />
         </div>
       </div>
 
       {/* ================= IRSHAD — z-0, BEHIND portrait */}
-      {/* Desktop: left side, top-[36%] */}
+      {/* Desktop: left side, top-[34%] */}
       <div
-        className="hidden md:block absolute left-[4.5vw] top-[37%] z-0"
+        className="hidden md:block absolute left-[4.5vw] top-[34%] z-0"
         data-name-layer="irshad"
       >
         <div className="overflow-hidden">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(5rem,13.2vw,13.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-foreground select-none"
+            className="split-parent block text-[clamp(5.5rem,13.8vw,14rem)] font-black uppercase leading-[0.86] tracking-[-0.04em] text-foreground select-none"
           >
             IRSHAD
           </span>
         </div>
       </div>
-      {/* Mobile: top-[24%] behind hair */}
+      {/* Mobile: top-[22%] behind hair */}
       <div
-        className="md:hidden absolute inset-x-0 top-[23%] z-0"
+        className="md:hidden absolute inset-x-0 top-[21%] z-0"
         data-name-layer="irshad"
       >
         <div className="overflow-hidden px-[5vw]">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(3.2rem,17vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-foreground select-none"
+            className="split-parent block text-[clamp(3.4rem,18vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-foreground select-none"
           >
             IRSHAD
           </span>
@@ -199,31 +200,31 @@ export function Hero() {
 
       {/* ================= AHAMED — z-20, IN FRONT of portrait */}
       {/* White text + difference blend: inverts over dark neck, black over light background */}
-      {/* Desktop: right side, top-[53%] */}
+      {/* Desktop: right side, top-[50%] */}
       <div
         data-name-layer="ahamed"
-        className="hidden md:block pointer-events-none absolute left-[46vw] right-[4.5vw] top-[53%] z-20 mix-blend-difference text-right"
+        className="hidden md:block pointer-events-none absolute left-[45vw] right-[4.5vw] top-[50%] z-20 mix-blend-difference text-right"
       >
         <div className="overflow-hidden">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(5rem,13.2vw,13.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white select-none"
+            className="split-parent block text-[clamp(5.5rem,13.8vw,14rem)] font-black uppercase leading-[0.86] tracking-[-0.04em] text-white select-none"
           >
             AHAMED
           </span>
         </div>
       </div>
-      {/* Mobile: top-[60%] across hoodie below chin */}
+      {/* Mobile: top-[55%] across hoodie below chin */}
       <div
         data-name-layer="ahamed"
-        className="md:hidden pointer-events-none absolute inset-x-0 top-[60%] z-20 mix-blend-difference text-right"
+        className="md:hidden pointer-events-none absolute inset-x-0 top-[55%] z-20 mix-blend-difference text-right"
       >
         <div className="overflow-hidden px-[5vw]">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(3.2rem,17vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white select-none"
+            className="split-parent block text-[clamp(3.4rem,18vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white select-none"
           >
             AHAMED
           </span>
