@@ -28,3 +28,4 @@ export function StarLogo({ className = "size-5" }: { className?: string }) {
     </svg>
   );
 }
+

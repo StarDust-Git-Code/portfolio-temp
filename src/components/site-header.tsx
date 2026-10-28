@@ -193,13 +193,10 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        {/* Right slot — desktop availability badge / mobile hamburger */}
+        {/* Right slot — spacer for optical centering on desktop / mobile hamburger */}
         <div className="justify-self-end">
-          {/* Desktop: Available for new opportunities */}
-          <div className="hidden md:flex items-center gap-2.5 text-[13px] text-foreground/85 font-normal">
-            <span className="size-2 rounded-full bg-[#fa2b1d] heat-dot" />
-            <span>Available for new opportunities</span>
-          </div>
+          {/* Desktop spacer keeps the nav optically centered */}
+          <span aria-hidden="true" className="hidden md:block w-4" />
 
           {/* Mobile: Sheet hamburger */}
           <div className="md:hidden">

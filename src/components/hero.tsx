@@ -169,29 +169,29 @@ export function Hero() {
       {/* ================= IRSHAD — z-0, BEHIND portrait */}
       {/* Desktop: left side, top-[34%] */}
       <div
-        className="hidden md:block absolute left-[4.5vw] top-[34%] z-0"
+        className="hidden md:block absolute left-[4.5vw] top-[34%] z-0 whitespace-nowrap"
         data-name-layer="irshad"
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden whitespace-nowrap">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(5.5rem,13.8vw,14rem)] font-black uppercase leading-[0.86] tracking-[-0.04em] text-foreground select-none"
+            className="split-parent inline-block whitespace-nowrap text-[clamp(4.5rem,11.5vw,13rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-foreground select-none"
           >
             IRSHAD
           </span>
         </div>
       </div>
-      {/* Mobile: top-[22%] behind hair */}
+      {/* Mobile: top-[21%] behind hair */}
       <div
-        className="md:hidden absolute inset-x-0 top-[21%] z-0"
+        className="md:hidden absolute inset-x-0 top-[21%] z-0 whitespace-nowrap"
         data-name-layer="irshad"
       >
-        <div className="overflow-hidden px-[5vw]">
+        <div className="overflow-hidden px-[5vw] whitespace-nowrap">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(3.4rem,18vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-foreground select-none"
+            className="split-parent inline-block whitespace-nowrap text-[clamp(3.2rem,17vw,5.2rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-foreground select-none"
           >
             IRSHAD
           </span>
@@ -200,16 +200,16 @@ export function Hero() {
 
       {/* ================= AHAMED — z-20, IN FRONT of portrait */}
       {/* White text + difference blend: inverts over dark neck, black over light background */}
-      {/* Desktop: right side, top-[50%] */}
+      {/* Desktop: right side, top-[50%] — anchored to right-[4.5vw] with whitespace-nowrap so D never wraps */}
       <div
         data-name-layer="ahamed"
-        className="hidden md:block pointer-events-none absolute left-[45vw] right-[4.5vw] top-[50%] z-20 mix-blend-difference text-right"
+        className="hidden md:block pointer-events-none absolute right-[4.5vw] top-[50%] z-20 mix-blend-difference text-right whitespace-nowrap"
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden whitespace-nowrap">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(5.5rem,13.8vw,14rem)] font-black uppercase leading-[0.86] tracking-[-0.04em] text-white select-none"
+            className="split-parent inline-block whitespace-nowrap text-[clamp(4.5rem,11.5vw,13rem)] font-black uppercase leading-[0.88] tracking-[-0.04em] text-white select-none"
           >
             AHAMED
           </span>
@@ -218,13 +218,13 @@ export function Hero() {
       {/* Mobile: top-[55%] across hoodie below chin */}
       <div
         data-name-layer="ahamed"
-        className="md:hidden pointer-events-none absolute inset-x-0 top-[55%] z-20 mix-blend-difference text-right"
+        className="md:hidden pointer-events-none absolute inset-x-0 top-[55%] z-20 mix-blend-difference text-right whitespace-nowrap"
       >
-        <div className="overflow-hidden px-[5vw]">
+        <div className="overflow-hidden px-[5vw] whitespace-nowrap">
           <span
             data-split
             aria-hidden="true"
-            className="split-parent block text-[clamp(3.4rem,18vw,5.5rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white select-none"
+            className="split-parent inline-block whitespace-nowrap text-[clamp(3.2rem,17vw,5.2rem)] font-black uppercase leading-[0.9] tracking-[-0.04em] text-white select-none"
           >
             AHAMED
           </span>
