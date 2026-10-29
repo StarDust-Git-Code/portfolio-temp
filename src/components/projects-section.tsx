@@ -30,7 +30,7 @@ export function ProjectsSection() {
           Featured Projects<span className="text-[#ff3b1f] ml-1">.</span>
         </h2>
         <p className="mt-4 max-w-[48ch] text-[15px] leading-[1.7] text-white/60">
-          From custom IoT telemetry platforms to offline edge AI overlays and 1st-place hackathon builds.
+          Tactile hardware platforms, high-contrast design systems, and low-latency spatial interfaces.
         </p>
       </ScrollReveal>
 
@@ -76,11 +76,11 @@ export function ProjectsSection() {
                   <div className="mt-8 pt-6 border-t border-white/[0.08]">
                     <a
                       href={project.href}
-                      target="_blank"
-                      rel="noreferrer"
+                      target={project.href.startsWith("http") ? "_blank" : undefined}
+                      rel={project.href.startsWith("http") ? "noreferrer" : undefined}
                       className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black transition-transform duration-200 hover:scale-[1.02] hover:bg-white/90"
                     >
-                      <span>Explore Repository</span>
+                      <span>Explore Project</span>
                       <ArrowUpRight className="size-3.5" />
                     </a>
                   </div>

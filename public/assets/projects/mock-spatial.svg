@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" fill="none">
+  <!-- Aether Spatial Computing HUD Viewport -->
+  <defs>
+    <radialGradient id="spatialBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#181920"/>
+      <stop offset="60%" stop-color="#0f1014"/>
+      <stop offset="100%" stop-color="#090a0d"/>
+    </radialGradient>
+    <linearGradient id="laserBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#ff3b1f" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ff3b1f" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="600" fill="url(#spatialBg)"/>
+
+  <!-- Perspective 3D floor grid -->
+  <g stroke="#ffffff" stroke-opacity="0.06" stroke-width="1">
+    <!-- Vanishing point (450, 240) -->
+    <line x1="450" y1="240" x2="-100" y2="600"/>
+    <line x1="450" y1="240" x2="100" y2="600"/>
+    <line x1="450" y1="240" x2="300" y2="600"/>
+    <line x1="450" y1="240" x2="450" y2="600"/>
+    <line x1="450" y1="240" x2="600" y2="600"/>
+    <line x1="450" y1="240" x2="800" y2="600"/>
+    <line x1="450" y1="240" x2="1000" y2="600"/>
+    <!-- Transverse depth lines -->
+    <line x1="400" y1="260" x2="500" y2="260"/>
+    <line x1="340" y1="290" x2="560" y2="290"/>
+    <line x1="260" y1="340" x2="640" y2="340"/>
+    <line x1="160" y1="410" x2="740" y2="410"/>
+    <line x1="20" y1="510" x2="880" y2="510"/>
+  </g>
+
+  <!-- Gyroscopic Ring Assembly -->
+  <g transform="translate(450, 280)">
+    <!-- Outer dashed telemetry ring -->
+    <ellipse cx="0" cy="0" rx="190" ry="110" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.5" stroke-dasharray="6 8"/>
+    <!-- Pitch axis ring -->
+    <ellipse cx="0" cy="0" rx="140" ry="80" stroke="#ff3b1f" stroke-opacity="0.5" stroke-width="1.5"/>
+    <ellipse cx="0" cy="0" rx="90" ry="50" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
+
+    <!-- Center optical reticle -->
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="4" fill="#ff3b1f"/>
+
+    <!-- Crosshairs -->
+    <line x1="-230" y1="0" x2="-30" y2="0" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+    <line x1="30" y1="0" x2="230" y2="0" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+    <line x1="0" y1="-140" x2="0" y2="-30" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+    <line x1="0" y1="30" x2="0" y2="140" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+
+    <!-- Spatial target bounding box -->
+    <g transform="translate(90, -50)">
+      <rect x="-30" y="-30" width="60" height="60" fill="none" stroke="#ff3b1f" stroke-width="1.2" stroke-dasharray="8 4"/>
+      <circle cx="0" cy="0" r="3" fill="#ff3b1f"/>
+      <text x="38" y="-12" font-family="ui-monospace, monospace" font-size="9" fill="#ffffff" fill-opacity="0.7">TARGET_01</text>
+      <text x="38" y="2" font-family="ui-monospace, monospace" font-size="9" fill="#ff3b1f">CONF: 99.4%</text>
+      <text x="38" y="16" font-family="ui-monospace, monospace" font-size="8" fill="#ffffff" fill-opacity="0.4">Z: 1.42m</text>
+    </g>
+  </g>
+
+  <!-- Top HUD Status Bar -->
+  <g transform="translate(60, 60)">
+    <rect x="0" y="0" width="12" height="12" fill="#ff3b1f"/>
+    <text x="22" y="11" font-family="ui-monospace, monospace" font-size="11" fill="#ffffff" font-weight="600" letter-spacing="2">
+      SPATIAL.OS // NPU-01 ONLINE
+    </text>
+    <text x="780" y="11" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" fill="#ffffff" fill-opacity="0.4">
+      LATENCY: 8.2ms · 120 FPS
+    </text>
+  </g>
+
+  <!-- Bottom Left Vector Readout -->
+  <g transform="translate(60, 520)" font-family="ui-monospace, monospace" font-size="10" fill="#ffffff" fill-opacity="0.35">
+    <text y="0">MATRIX: [ 0.9482  -0.0124   0.3174 ]</text>
+    <text y="16">TRANS:  [ 0.0041   1.1205  -0.8920 ]</text>
+  </g>
+</svg>

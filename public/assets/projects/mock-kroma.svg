@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" fill="none">
+  <!-- Kroma Sound Workstation (Dark Tactile Audio Engine) -->
+  <defs>
+    <radialGradient id="kromaGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1f1816"/>
+      <stop offset="60%" stop-color="#121212"/>
+      <stop offset="100%" stop-color="#090909"/>
+    </radialGradient>
+    <linearGradient id="metalPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#242424"/>
+      <stop offset="100%" stop-color="#141414"/>
+    </linearGradient>
+    <linearGradient id="heatWave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3b1f" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#ff3b1f" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff6b3d" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="600" fill="url(#kromaGlow)"/>
+
+  <!-- Grid overlay -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="150" x2="900" y2="150"/>
+    <line x1="0" y1="300" x2="900" y2="300"/>
+    <line x1="0" y1="450" x2="900" y2="450"/>
+    <line x1="225" y1="0" x2="225" y2="600"/>
+    <line x1="450" y1="0" x2="450" y2="600"/>
+    <line x1="675" y1="0" x2="675" y2="600"/>
+  </g>
+
+  <!-- Hardware Deck Chassis -->
+  <rect x="100" y="90" width="700" height="420" rx="20" fill="url(#metalPlate)" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.5"/>
+
+  <!-- Screws on corners -->
+  <circle cx="125" cy="115" r="4" fill="#000" stroke="#444" stroke-width="1"/>
+  <circle cx="775" cy="115" r="4" fill="#000" stroke="#444" stroke-width="1"/>
+  <circle cx="125" cy="485" r="4" fill="#000" stroke="#444" stroke-width="1"/>
+  <circle cx="775" cy="485" r="4" fill="#000" stroke="#444" stroke-width="1"/>
+
+  <!-- Oscilloscope Display Screen -->
+  <rect x="140" y="130" width="420" height="220" rx="12" fill="#0c0c0c" stroke="#ffffff" stroke-opacity="0.08"/>
+
+  <!-- Waveform line inside screen -->
+  <path d="M 150 240 Q 200 240, 230 180 T 290 280 T 350 160 T 410 310 T 470 200 T 540 240" fill="none" stroke="url(#heatWave)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Ghost waveform -->
+  <path d="M 150 240 Q 200 240, 230 200 T 290 260 T 350 190 T 410 270 T 470 220 T 540 240" fill="none" stroke="#ff3b1f" stroke-opacity="0.25" stroke-width="1.5"/>
+
+  <!-- Screen readout text -->
+  <text x="160" y="160" font-family="ui-monospace, monospace" font-size="11" fill="#ff3b1f" font-weight="600" letter-spacing="1">
+    KROMA // 48.0 kHz · 32-BIT FLOAT
+  </text>
+  <text x="530" y="160" text-anchor="end" font-family="ui-monospace, monospace" font-size="11" fill="#ffffff" fill-opacity="0.4">
+    DSP ACTIVE
+  </text>
+  <text x="160" y="325" font-family="ui-monospace, monospace" font-size="10" fill="#ffffff" fill-opacity="0.3">
+    GAIN: +3.2dB · THD: 0.002% · RES: 94%
+  </text>
+
+  <!-- Right control bank: Rotary Encoders -->
+  <g transform="translate(600, 130)">
+    <!-- Knob 1 -->
+    <circle cx="70" cy="50" r="34" fill="#181818" stroke="#333333" stroke-width="2"/>
+    <circle cx="70" cy="50" r="28" fill="#1f1f1f"/>
+    <line x1="70" y1="26" x2="70" y2="38" stroke="#ff3b1f" stroke-width="3" stroke-linecap="round"/>
+    <text x="70" y="102" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">FREQ</text>
+
+    <!-- Knob 2 -->
+    <circle cx="70" cy="160" r="34" fill="#181818" stroke="#333333" stroke-width="2"/>
+    <circle cx="70" cy="160" r="28" fill="#1f1f1f"/>
+    <line x1="84" y1="138" x2="76" y2="148" stroke="#ffffff" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+    <text x="70" y="212" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">RES</text>
+  </g>
+
+  <!-- Bottom tactile keys / pads -->
+  <g transform="translate(140, 380)">
+    <rect x="0" y="0" width="72" height="85" rx="6" fill="#1c1c1c" stroke="#333"/>
+    <rect x="84" y="0" width="72" height="85" rx="6" fill="#1c1c1c" stroke="#333"/>
+    <rect x="168" y="0" width="72" height="85" rx="6" fill="#ff3b1f" fill-opacity="0.15" stroke="#ff3b1f" stroke-width="1.5"/>
+    <circle cx="204" cy="20" r="3" fill="#ff3b1f"/>
+    <rect x="252" y="0" width="72" height="85" rx="6" fill="#1c1c1c" stroke="#333"/>
+    <rect x="336" y="0" width="72" height="85" rx="6" fill="#1c1c1c" stroke="#333"/>
+    <rect x="420" y="0" width="72" height="85" rx="6" fill="#1c1c1c" stroke="#333"/>
+    <rect x="504" y="0" width="116" height="85" rx="6" fill="#181818" stroke="#2a2a2a"/>
+    <text x="562" y="47" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#ffffff" fill-opacity="0.6" letter-spacing="2">TRIGGER</text>
+  </g>
+</svg>

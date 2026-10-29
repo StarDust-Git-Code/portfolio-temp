@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" fill="none">
+  <!-- Paw-tech 3D Product Visual (Dark Studio Render matching Alexfolio reference) -->
+  <defs>
+    <radialGradient id="studioLight" cx="60%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#2a2a2a" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#141414" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="cylinderBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#181818"/>
+      <stop offset="25%" stop-color="#383838"/>
+      <stop offset="45%" stop-color="#555555"/>
+      <stop offset="70%" stop-color="#222222"/>
+      <stop offset="100%" stop-color="#121212"/>
+    </linearGradient>
+    <linearGradient id="metalRim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#444444"/>
+      <stop offset="35%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#777777"/>
+      <stop offset="100%" stop-color="#222222"/>
+    </linearGradient>
+    <linearGradient id="pedestalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.5" fill="#ffffff" fill-opacity="0.04"/>
+      <circle cx="4" cy="4" r="0.5" fill="#ffffff" fill-opacity="0.03"/>
+    </pattern>
+  </defs>
+
+  <!-- Studio backdrop -->
+  <rect width="900" height="600" fill="url(#studioLight)"/>
+  <rect width="900" height="600" fill="url(#grain)"/>
+
+  <!-- Subtle pedestal / stage floor -->
+  <path d="M0 480 L900 440 L900 600 L0 600 Z" fill="url(#pedestalGrad)"/>
+  <line x1="0" y1="480" x2="900" y2="440" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+
+  <!-- Soft shadow under canister -->
+  <ellipse cx="450" cy="495" rx="140" ry="24" fill="#000000" fill-opacity="0.7" filter="blur(16px)"/>
+
+  <!-- Canister assembly (Alexfolio 000 Spray/Product Container) -->
+  <g transform="translate(450, 100)">
+    <!-- Nozzle cap -->
+    <rect x="-16" y="0" width="32" height="24" rx="4" fill="url(#cylinderBody)"/>
+    <rect x="-10" y="24" width="20" height="12" fill="#111111"/>
+
+    <!-- Upper shoulder curve -->
+    <path d="M -68 76 C -68 45, 68 45, 68 76 Z" fill="url(#cylinderBody)"/>
+    <ellipse cx="0" cy="76" rx="68" ry="12" fill="url(#metalRim)"/>
+
+    <!-- Main Cylinder Body -->
+    <path d="M -68 76 L -68 370 C -68 382, 68 382, 68 370 L 68 76 Z" fill="url(#cylinderBody)"/>
+
+    <!-- Cylinder Specular highlight stripe -->
+    <rect x="-24" y="78" width="16" height="290" fill="#ffffff" fill-opacity="0.08" filter="blur(3px)"/>
+
+    <!-- Bottom rim -->
+    <path d="M -68 370 C -68 386, 68 386, 68 370 L 68 382 C 68 398, -68 398, -68 382 Z" fill="url(#metalRim)"/>
+
+    <!-- Vertical "000" iconic branding -->
+    <g transform="translate(0, 235)" text-anchor="middle" font-family="'Inter Variable', sans-serif" font-weight="900">
+      <text y="-80" font-size="52" fill="#ffffff" fill-opacity="0.82" letter-spacing="-2">0</text>
+      <text y="-20" font-size="52" fill="#ffffff" fill-opacity="0.82" letter-spacing="-2">0</text>
+      <text y="40"  font-size="52" fill="#ffffff" fill-opacity="0.82" letter-spacing="-2">0</text>
+      <!-- Horizontal strike through the 0s -->
+      <line x1="-28" y1="-95" x2="28" y2="-95" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/>
+      <line x1="-28" y1="-35" x2="28" y2="-35" stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/>
+      <line x1="-28" y1="25"  x2="28" y2="25"  stroke="#ffffff" stroke-opacity="0.4" stroke-width="2"/>
+    </g>
+
+    <!-- Small product metadata text at bottom of can -->
+    <text x="0" y="340" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#ffffff" fill-opacity="0.35" letter-spacing="3">
+      PAW-TECH · EDITION 01 · 250ML
+    </text>
+  </g>
+
+  <!-- Technical camera viewport ticks -->
+  <g stroke="#ffffff" stroke-opacity="0.15" stroke-width="1">
+    <path d="M 40 40 L 60 40 M 40 40 L 40 60"/>
+    <path d="M 860 40 L 840 40 M 860 40 L 860 60"/>
+    <path d="M 40 560 L 60 560 M 40 560 L 40 540"/>
+    <path d="M 860 560 L 840 560 M 860 560 L 860 540"/>
+  </g>
+  <text x="50" y="58" font-family="ui-monospace, monospace" font-size="11" fill="#ffffff" fill-opacity="0.3" letter-spacing="2">
+    REC [35MM / F1.8]
+  </text>
+</svg>
