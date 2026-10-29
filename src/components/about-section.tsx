@@ -4,7 +4,6 @@ import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { ContributionGraph } from "@/components/contribution-graph";
 import {
-  RECOGNITION,
   BUILD_NOTES,
   LINKEDIN_ACTIVITY,
 } from "@/data/profile";
@@ -47,48 +46,6 @@ const CAPABILITIES = [
   },
 ];
 
-const AWARDS = [
-  {
-    project: "Fluxboard.AI",
-    award: "1st Place · 14.80 / 15",
-    event: "PIXEL.GEMINI · MLH 2026",
-    id: "01",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7436599170284552192/",
-    highlight: true,
-  },
-  {
-    project: "SentinelAI",
-    award: "Best Use of Google APIs",
-    event: "Gemini.exe 2.0 · MLH",
-    id: "02",
-    href: "https://devpost.com/software/sentinelai-n9y6fe",
-    highlight: false,
-  },
-  {
-    project: "GRASKILLS.AI",
-    award: "4th Place (of 34 Teams)",
-    event: "PROMPT. TRAIN. PARTY · MLH",
-    id: "03",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7434195127780388864/",
-    highlight: false,
-  },
-  {
-    project: "Galaxy A35 Bring-up",
-    award: "Android 16 GSI Port",
-    event: "Evolution X Open Source",
-    id: "04",
-    href: "https://www.linkedin.com/feed/update/urn:li:activity:7420800301407891456/",
-    highlight: false,
-  },
-  {
-    project: "Caelestia Shell",
-    award: "Ubuntu 26.04 Port",
-    event: "Hyprland Linux Ecosystem",
-    id: "05",
-    href: "https://github.com/StarDust-Git-Code/caelestia-shell-ubuntu_26",
-    highlight: false,
-  },
-];
 
 export function AboutSection() {
   return (
@@ -138,56 +95,7 @@ export function AboutSection() {
         </ScrollReveal>
       </div>
 
-      {/* ================= RECOGNITION / AWARDS TABLE (Alexfolio Slide 3 Top) */}
-      <div className="mt-28">
-        <ScrollReveal>
-          <div className="rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-10 shadow-2xl transition-all duration-300 hover:border-white/[0.14]">
-            <div className="flex items-end justify-between border-b border-white/[0.08] pb-5">
-              <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-                {"// Recognition & Milestones"}
-              </span>
-              <span className="hidden md:inline font-tech text-[11px] uppercase tracking-[0.2em] text-white/40">
-                Verified Placements
-              </span>
-            </div>
-
-            <div className="divide-y divide-white/[0.06]">
-              {AWARDS.map((item) => (
-                <a
-                  key={item.project}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group grid grid-cols-2 md:grid-cols-12 items-center gap-4 py-4 md:py-5 px-3 rounded-xl transition-colors duration-200 hover:bg-white/[0.04]"
-                >
-                  <div className="col-span-1 md:col-span-4 flex items-center gap-2.5">
-                    <span className="text-[15px] md:text-[17px] font-semibold text-white group-hover:underline underline-offset-4">
-                      {item.project}
-                    </span>
-                    {item.highlight ? (
-                      <span className="size-1.5 rounded-full bg-[#ff3b1f] animate-pulse" title="1st Place" />
-                    ) : null}
-                  </div>
-                  <div className="col-span-1 md:col-span-4 text-right md:text-left text-[13px] md:text-[14px] text-white/70 font-medium">
-                    <span className={item.highlight ? "text-[#ff3b1f] font-semibold" : ""}>
-                      {item.award}
-                    </span>
-                  </div>
-                  <div className="hidden md:block md:col-span-3 text-[13px] text-white/45 font-tech">
-                    {item.event}
-                  </div>
-                  <div className="hidden md:flex md:col-span-1 items-center justify-end gap-1.5 font-tech text-[12px] text-white/35 group-hover:text-white transition-colors">
-                    <span>{item.id}</span>
-                    <ArrowUpRight className="size-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
-
-      {/* ================= CAPABILITIES / SERVICES (Alexfolio Slide 3 Bottom) */}
+      {/* ================= CAPABILITIES / SERVICES (Alexfolio Image 3 Bottom) */}
       <div className="mt-28">
         <ScrollReveal>
           <div className="flex items-end justify-between border-b border-white/[0.08] pb-4">
@@ -200,47 +108,38 @@ export function AboutSection() {
           </div>
         </ScrollReveal>
 
-        <div className="mt-8 space-y-6">
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {CAPABILITIES.map((cap, i) => (
             <ScrollReveal key={cap.num} delay={i * 80}>
-              <div className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-10 transition-all duration-300 hover:border-white/20 hover:bg-[#161616]">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
-                  {/* Left: Giant Stroked Ø1, Ø2, Ø3 */}
-                  <div className="md:col-span-4 flex items-center justify-start md:justify-center border-b md:border-b-0 md:border-r border-white/[0.08] pb-6 md:pb-0 md:pr-8">
-                    <span className="text-outline font-black text-6xl md:text-8xl lg:text-9xl leading-none select-none tracking-tighter">
-                      Ø{cap.num.replace(/^0/, "")}
-                    </span>
-                  </div>
+              <div className="flex flex-col justify-between h-full rounded-3xl border border-white/[0.08] bg-[#141414] p-8 md:p-10 transition-all duration-300 hover:border-white/20 hover:bg-[#161616]">
+                <div>
+                  {/* Giant stroked outline number (Alexfolio Image 3 style) */}
+                  <span className="text-outline font-black text-[clamp(4.5rem,7vw,6.5rem)] leading-none select-none tracking-tighter">
+                    {cap.num}
+                  </span>
 
-                  {/* Right: Service Details */}
-                  <div className="md:col-span-8 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-2xl md:text-3xl font-extrabold tracking-[-0.02em] text-white">
-                        {cap.title}
-                      </h3>
-                      <p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-white/65 max-w-2xl">
-                        {cap.desc}
-                      </p>
-                    </div>
+                  <h3 className="mt-6 text-[22px] font-bold tracking-[-0.02em] text-white">
+                    {cap.title}
+                  </h3>
 
-                    {/* Sub-items 2-column grid */}
-                    <div className="mt-6 pt-5 border-t border-white/[0.08]">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5">
-                        {cap.items.map((tech) => (
-                          <div
-                            key={tech.name}
-                            className="flex items-center justify-between py-1.5 border-b border-white/[0.04] text-[13px] text-white/80"
-                          >
-                            <span>{tech.name}</span>
-                            <span className="font-tech text-[11px] text-white/35">
-                              {tech.id}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                  <p className="mt-3 text-[13.5px] leading-[1.7] text-white/60 [text-wrap:pretty]">
+                    {cap.desc}
+                  </p>
                 </div>
+
+                <ul className="mt-8 border-t border-white/[0.08] pt-4 divide-y divide-white/[0.06]">
+                  {cap.items.map((tech) => (
+                    <li
+                      key={tech.name}
+                      className="flex items-center justify-between py-2.5 text-[12.5px] font-medium text-white/80"
+                    >
+                      <span>{tech.name}</span>
+                      <span className="font-tech text-[11px] text-white/35">
+                        {tech.id}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </ScrollReveal>
           ))}
