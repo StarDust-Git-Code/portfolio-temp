@@ -3,6 +3,9 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
+import NumberFlow from "@number-flow/react";
+import { motion } from "motion/react";
+import Tilt from "react-parallax-tilt";
 import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { FEATURED, INDEX_ROWS, GITHUB_PROFILE } from "@/data/projects";
@@ -50,6 +53,25 @@ export function ProjectsSection() {
     };
   }, [emblaApi]);
 
+  // Keyboard navigation when work section is in view
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const section = document.getElementById("work");
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.9 && rect.bottom > window.innerHeight * 0.1;
+      if (!inView) return;
+
+      if (e.key === "ArrowLeft") {
+        scrollPrev();
+      } else if (e.key === "ArrowRight") {
+        scrollNext();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [scrollPrev, scrollNext]);
+
   const archiveProjects = INDEX_ROWS.slice(0, 5);
 
   return (
@@ -82,11 +104,18 @@ export function ProjectsSection() {
           </p>
         </div>
 
-        {/* Swipe arrow navigation & counter */}
+        {/* Swipe arrow navigation & Kinetic rolling NumberFlow counter */}
         <div className="flex items-center gap-3 self-end md:self-auto">
-          <span className="font-tech text-xs tracking-[0.2em] text-white/45 mr-1">
-            {`0${selectedIndex + 1} / 0${FEATURED.length}`}
-          </span>
+          <div className="flex items-center font-tech text-xs tracking-[0.2em] text-white/50 mr-1 select-none">
+            <NumberFlow
+              value={selectedIndex + 1}
+              format={{ minimumIntegerDigits: 2 }}
+              className="font-tech text-white font-semibold"
+            />
+            <span className="mx-1 text-white/30">/</span>
+            <span>{`0${FEATURED.length}`}</span>
+          </div>
+
           <button
             onClick={scrollPrev}
             disabled={!canPrev}
@@ -114,7 +143,7 @@ export function ProjectsSection() {
         </div>
       </ScrollReveal>
 
-      {/* ================= HORIZONTAL SWIPEABLE BENTO TRACK (Embla) */}
+      {/* ================= HORIZONTAL SWIPEABLE BENTO TRACK (Embla + Motion) */}
       <div
         className="mt-10 overflow-hidden cursor-grab active:cursor-grabbing select-none"
         ref={emblaRef}
@@ -125,7 +154,15 @@ export function ProjectsSection() {
               key={project.title}
               className="min-w-0 flex-[0_0_100%] pl-6 md:pl-8"
             >
-              <div className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-8 lg:p-10 transition-all duration-300 hover:border-white/20">
+              <motion.div
+                animate={{
+                  scale: selectedIndex === i ? 1 : 0.965,
+                  opacity: selectedIndex === i ? 1 : 0.45,
+                }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-8 lg:p-10 transition-colors duration-300 hover:border-white/20"
+              >
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-center">
                   {/* Left Column — Context & Details */}
                   <div className="lg:col-span-6 flex flex-col justify-between h-full">
@@ -177,48 +214,63 @@ export function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Right Column — Large Media Container */}
+                  {/* Right Column — 3D Parallax Tilt Media Container */}
                   <div className="lg:col-span-6">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4">
-                      {project.image ? (
-                        <div className="relative h-full w-full">
-                          <Image
-                            src={project.image}
-                            alt={project.imageAlt ?? project.title}
-                            fill
-                            className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
-                              project.imageFit === "contain" ? "object-contain" : "object-cover"
-                            }`}
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center">
-                          <span className="font-black text-6xl text-white/10">
-                            {project.title.charAt(0)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                    <Tilt
+                      tiltMaxAngleX={4}
+                      tiltMaxAngleY={4}
+                      perspective={1400}
+                      glareEnable={true}
+                      glareMaxOpacity={0.06}
+                      glareColor="#ffffff"
+                      glarePosition="all"
+                      glareBorderRadius="1rem"
+                      scale={1.01}
+                      transitionSpeed={1000}
+                      className="w-full h-full"
+                    >
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4">
+                        {project.image ? (
+                          <div className="relative h-full w-full">
+                            <Image
+                              src={project.image}
+                              alt={project.imageAlt ?? project.title}
+                              fill
+                              className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
+                                project.imageFit === "contain" ? "object-contain" : "object-cover"
+                              }`}
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center">
+                            <span className="font-black text-6xl text-white/10">
+                              {project.title.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Tilt>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Pagination Dot Indicators */}
+      {/* Pagination Dot Indicators (Motion Animated Pills) */}
       <div className="mt-6 flex items-center justify-center gap-2">
         {FEATURED.map((_, i) => (
-          <button
+          <motion.button
             key={i}
             onClick={() => scrollTo(i)}
             aria-label={`Jump to project ${i + 1}`}
-            className={`transition-all duration-300 rounded-full ${
-              selectedIndex === i
-                ? "w-8 h-2 bg-[#ff3b1f]"
-                : "w-2 h-2 bg-white/20 hover:bg-white/40"
-            }`}
+            animate={{
+              width: selectedIndex === i ? 32 : 8,
+              backgroundColor: selectedIndex === i ? "#ff3b1f" : "rgba(255, 255, 255, 0.2)",
+            }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="h-2 rounded-full cursor-pointer hover:bg-white/40"
           />
         ))}
       </div>
