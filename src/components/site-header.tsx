@@ -27,7 +27,7 @@ const SOCIALS = [
 ] as const;
 
 /** 1px scroll-progress hairline riding the very top edge */
-function ScrollProgress({ isDark }: { isDark: boolean }) {
+function ScrollProgress() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,9 +53,7 @@ function ScrollProgress({ isDark }: { isDark: boolean }) {
     >
       <div
         ref={ref}
-        className={`h-full w-full origin-left scale-x-0 transition-transform duration-75 ease-linear ${
-          isDark ? "bg-white/80" : "bg-[#0a0a0a]/80"
-        }`}
+        className="h-full w-full origin-left scale-x-0 bg-foreground/70 transition-transform duration-75 ease-linear"
       />
     </div>
   );
@@ -118,22 +116,12 @@ function HamburgerIcon({ open }: { open: boolean }) {
 export function SiteHeader() {
   const [active, setActive] = useState<string>("About");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isOverDark, setIsOverDark] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
-
-      const aboutEl = document.getElementById("about");
-      if (aboutEl) {
-        const rect = aboutEl.getBoundingClientRect();
-        // Switch to dark header when the #about section enters the top viewport range
-        setIsDark(rect.top <= 80);
-      } else {
-        setIsDark(false);
-      }
+      // Determine if scrolled past hero into dark sections
+      setIsOverDark(window.scrollY > window.innerHeight * 0.75);
 
       const ids = NAV_ITEMS.map((i) => i.href.slice(1));
       let current = "";
@@ -152,42 +140,23 @@ export function SiteHeader() {
 
   return (
     <>
-      <ScrollProgress isDark={isDark} />
+      <ScrollProgress />
 
-      {/* Smooth soft fog dissolve layer across the top (no hard border lines!) */}
+      {/* Soft blended fade across top */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 md:h-36 transition-opacity duration-500 ease-out ${
-          isScrolled ? "opacity-100" : "opacity-0"
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 backdrop-blur-md transition-colors duration-500 ${
+          isOverDark ? "bg-[#0c0c0c]/70" : "bg-transparent"
         }`}
-      >
-        {/* Progressive backdrop blur with feathered dissolve mask */}
-        <div
-          className="absolute inset-0 backdrop-blur-md"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)",
-          }}
-        />
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 40%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 40%, transparent 100%)",
+        }}
+      />
 
-        {/* Multi-stop smooth fog gradient */}
-        <div
-          className="absolute inset-0 transition-colors duration-500 ease-out"
-          style={{
-            background: isDark
-              ? "linear-gradient(to bottom, #0e0e0e 0%, #0e0e0e 38%, rgba(14,14,14,0.96) 50%, rgba(14,14,14,0.82) 62%, rgba(14,14,14,0.55) 75%, rgba(14,14,14,0.25) 88%, rgba(14,14,14,0) 100%)"
-              : "linear-gradient(to bottom, #e2e2e1 0%, #e2e2e1 38%, rgba(226,226,225,0.96) 50%, rgba(226,226,225,0.82) 62%, rgba(226,226,225,0.55) 75%, rgba(226,226,225,0.25) 88%, rgba(226,226,225,0) 100%)",
-          }}
-        />
-      </div>
-
-      <header
-        className={`fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] py-5 md:py-6 transition-colors duration-300 ease-out bg-transparent border-none ${
-          isDark ? "text-white" : "text-[#0a0a0a]"
-        }`}
-      >
+      <header className="fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] py-6 transition-colors duration-300">
         {/* Brand */}
         <Link
           href="#home"
@@ -195,13 +164,13 @@ export function SiteHeader() {
           aria-label="Irshad Ahamed — home"
         >
           <StarLogo
-            className={`size-4.5 transition-transform duration-500 group-hover:rotate-45 ${
-              isDark ? "text-white" : "text-[#0a0a0a]"
+            className={`size-4.5 transition-all duration-500 group-hover:rotate-45 ${
+              isOverDark ? "text-white" : "text-foreground"
             }`}
           />
           <span
-            className={`whitespace-nowrap text-[13px] font-semibold tracking-[0.16em] uppercase transition-colors duration-200 ${
-              isDark ? "text-white" : "text-[#0a0a0a]"
+            className={`whitespace-nowrap text-[13px] font-semibold tracking-[0.16em] uppercase transition-colors duration-300 ${
+              isOverDark ? "text-white" : "text-foreground"
             }`}
           >
             Irshad Ahamed
@@ -220,20 +189,20 @@ export function SiteHeader() {
               aria-current={active === item.label ? "page" : undefined}
               data-current={active === item.label}
               className={`group relative flex flex-col items-center text-[14px] transition-colors duration-200 ${
-                isDark
+                isOverDark
                   ? active === item.label
                     ? "font-medium text-white"
-                    : "text-white/70 hover:text-white"
+                    : "text-white/65 hover:text-white"
                   : active === item.label
-                  ? "font-medium text-[#0a0a0a]"
-                  : "text-[#0a0a0a]/75 hover:text-[#0a0a0a]"
+                  ? "font-medium text-foreground"
+                  : "text-foreground/75 hover:text-foreground"
               }`}
             >
               <span>{item.label}</span>
               <span
                 aria-hidden="true"
                 className={`mt-1 size-1 rounded-full transition-all duration-300 ${
-                  isDark ? "bg-white" : "bg-[#0a0a0a]"
+                  isOverDark ? "bg-white" : "bg-foreground"
                 } ${
                   active === item.label ? "opacity-100 scale-100" : "opacity-0 scale-0"
                 }`}
@@ -247,9 +216,7 @@ export function SiteHeader() {
           <a
             href="#contact"
             className={`hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium transition-colors group ${
-              isDark
-                ? "text-white/80 hover:text-white"
-                : "text-[#0a0a0a]/80 hover:text-[#0a0a0a]"
+              isOverDark ? "text-white/75 hover:text-white" : "text-foreground/75 hover:text-foreground"
             }`}
           >
             <span>Get in touch</span>
@@ -263,9 +230,9 @@ export function SiteHeader() {
                 <button
                   aria-label={mobileOpen ? "Close menu" : "Open menu"}
                   className={`flex size-9 items-center justify-center rounded-full border transition-all duration-200 ${
-                    isDark
-                      ? "border-white/15 bg-white/5 text-white hover:border-white/40"
-                      : "border-black/15 bg-black/5 text-[#0a0a0a] hover:border-black/40"
+                    isOverDark
+                      ? "border-white/20 bg-[#141414] text-white hover:border-white/50"
+                      : "border-foreground/15 bg-background/70 text-foreground hover:border-foreground/40"
                   }`}
                 >
                   <HamburgerIcon open={mobileOpen} />
@@ -292,7 +259,7 @@ export function SiteHeader() {
                   <SheetClose asChild>
                     <button
                       aria-label="Close menu"
-                      className="flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white"
+                      className="flex size-9 items-center justify-center rounded-full border border-white/20 bg-[#141414] text-white"
                     >
                       <HamburgerIcon open={true} />
                     </button>
@@ -305,7 +272,7 @@ export function SiteHeader() {
                       <Link
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className="group flex items-center justify-between border-b border-white/10 py-5"
+                        className="group flex items-center justify-between border-b border-white/8 py-5"
                       >
                         <span
                           className={`text-[28px] font-extrabold tracking-[-0.03em] ${
@@ -325,7 +292,7 @@ export function SiteHeader() {
                 </nav>
 
                 <div className="absolute bottom-10 left-6 flex flex-col gap-4">
-                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-white/35">
+                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-white/40">
                     {"// Social"}
                   </span>
                   <div className="flex items-center gap-4">

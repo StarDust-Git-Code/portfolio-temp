@@ -11,6 +11,7 @@ import {
   FaXTwitter,
   FaInstagram,
 } from "react-icons/fa6";
+import { SiteHeader } from "@/components/site-header";
 import {
   GITHUB_PROFILE,
   LINKEDIN_PROFILE,
@@ -122,6 +123,8 @@ export function Hero() {
       className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-background"
       aria-label="Introduction"
     >
+      <SiteHeader />
+
       <h1 className="sr-only">{PROFILE.title}</h1>
 
       {/* ================= PORTRAIT — z-10 (behind AHAMED, in front of IRSHAD) */}

@@ -1,4 +1,3 @@
-import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
 import { AboutSection } from "@/components/about-section";
 import { ProjectsSection } from "@/components/projects-section";
@@ -7,33 +6,29 @@ import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-svh flex-col bg-[#e2e2e1]">
-      {/* Global Fixed Navigation */}
-      <SiteHeader />
-
-      {/* Light Studio Hero Card */}
+    <main className="flex min-h-svh flex-col">
       <Hero />
-
-      {/* Deep Black Alexfolio Theme — Sections from Dribbble Reference */}
-      <div className="relative dark bg-[#0e0e0e] text-[#eceae7]">
-        {/* Subtle Alexfolio watermark across dark sections */}
+      <div className="dark relative z-20 bg-[#0c0c0c] text-[#f4f4f4] transition-colors">
+        {/* Subtle Alexfolio typography watermark floating in dark canvas */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden select-none opacity-[0.035]"
+          className="pointer-events-none absolute inset-0 overflow-hidden select-none"
         >
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-            <span className="font-black text-[22vw] uppercase tracking-[-0.05em] text-white whitespace-nowrap leading-none">
-              IRSHAD AHAMED
-            </span>
-          </div>
+          <span className="absolute top-[4%] -left-[6vw] font-black uppercase tracking-[-0.05em] text-white/[0.02] leading-none whitespace-nowrap text-[clamp(7rem,20vw,20rem)]">
+            IRSHAD
+          </span>
+          <span className="absolute top-[34%] -right-[8vw] font-black uppercase tracking-[-0.05em] text-white/[0.02] leading-none whitespace-nowrap text-[clamp(7rem,20vw,20rem)]">
+            AHAMED
+          </span>
+          <span className="absolute top-[68%] -left-[6vw] font-black uppercase tracking-[-0.05em] text-white/[0.02] leading-none whitespace-nowrap text-[clamp(7rem,20vw,20rem)]">
+            BUILDER
+          </span>
         </div>
 
-        <div className="relative z-10">
-          <AboutSection />
-          <ProjectsSection />
-          <ContactSection />
-          <SiteFooter />
-        </div>
+        <AboutSection />
+        <ProjectsSection />
+        <ContactSection />
+        <SiteFooter />
       </div>
     </main>
   );
