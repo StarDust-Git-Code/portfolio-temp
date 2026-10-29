@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/plus-jakarta-sans";
@@ -8,6 +8,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { PROFILE, GITHUB_PROFILE, LINKEDIN_PROFILE } from "@/data/profile";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0c0c0c",
+};
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";

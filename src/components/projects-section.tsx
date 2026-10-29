@@ -30,6 +30,7 @@ export function ProjectsSection() {
           Featured Projects<span className="text-[#ff3b1f] ml-1">.</span>
         </h2>
         <p className="mt-4 max-w-[48ch] text-[15px] leading-[1.7] text-white/60">
+          From custom IoT telemetry platforms to offline edge AI overlays and 1st-place hackathon builds.
           Tactile hardware platforms, high-contrast design systems, and low-latency spatial interfaces.
         </p>
       </ScrollReveal>
@@ -95,9 +96,8 @@ export function ProjectsSection() {
                           src={project.image}
                           alt={project.imageAlt ?? project.title}
                           fill
-                          className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
-                            project.imageFit === "contain" ? "object-contain" : "object-cover"
-                          }`}
+                          className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${project.imageFit === "contain" ? "object-contain" : "object-cover"
+                            }`}
                         />
                       </div>
                     ) : (

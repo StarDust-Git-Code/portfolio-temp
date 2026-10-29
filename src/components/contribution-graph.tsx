@@ -60,7 +60,7 @@ export function ContributionGraph({ username }: { username: string }) {
       </div>
 
       <div
-        className="mt-6 overflow-x-auto"
+        className="mt-6 overflow-x-auto pb-2 [-webkit-overflow-scrolling:touch]"
         role="img"
         aria-label={`GitHub contribution graph for ${username}`}
       >
