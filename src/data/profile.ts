@@ -12,6 +12,7 @@ export const SENTINELAI_SUBMISSION =
   "https://devpost.com/software/sentinelai-n9y6fe";
 
 export const PROFILE = {
+  email: "irshadahamed.dev@gmail.com",
   location: "Chennai, Tamil Nadu, India",
   title: "Irshad Ahamed — Embedded Systems & Edge AI",
   description:

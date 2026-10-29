@@ -283,7 +283,7 @@ export function Hero() {
         className="absolute bottom-[6%] right-[4.5vw] z-30 hidden text-left md:block"
       >
         <p className="font-tech text-[11.5px] uppercase leading-[1.8] tracking-[0.14em] text-foreground/75">
-          // AI · EMBEDDED · IOT
+          {"// AI · EMBEDDED · IOT"}
           <br />
           ROBOTICS · DIGITAL PRODUCTS
         </p>

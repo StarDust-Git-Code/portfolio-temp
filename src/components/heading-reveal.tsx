@@ -14,12 +14,14 @@ export function HeadingReveal({
   type = "chars",
   className,
   headingClassName,
+  splitClassName,
   extra,
 }: {
   text: string;
   type?: "chars" | "words";
   className?: string;
   headingClassName?: string;
+  splitClassName?: string;
   extra?: React.ReactNode;
 }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -73,7 +75,11 @@ export function HeadingReveal({
         aria-label={text}
         className={headingClassName}
       >
-        <span aria-hidden="true" data-split className="split-parent">
+        <span
+          aria-hidden="true"
+          data-split
+          className={`split-parent ${splitClassName ?? ""}`.trim()}
+        >
           {text}
         </span>
         {extra}

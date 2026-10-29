@@ -210,24 +210,6 @@
   color: transparent;
 }
 
-/* Logo via-glint — vias pulse like current flowing when the brand is hovered */
-@keyframes via-glow {
-
-  0%,
-  100% {
-    opacity: 0.75;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-.group:hover>.via-pads,
-.group:hover>* .via-pads {
-  animation: via-glow 1.1s ease-in-out infinite;
-}
-
 /* Scroll-driven word spotlight (About headline): non-active words are
    dimmed, slightly scaled down and softly blurred; active words are crisp. */
 .wh-ready .wh-word {
