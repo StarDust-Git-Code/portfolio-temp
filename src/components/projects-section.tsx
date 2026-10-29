@@ -1,13 +1,55 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { FEATURED, INDEX_ROWS, GITHUB_PROFILE } from "@/data/projects";
 
 export function ProjectsSection() {
-  // Feature top 2 flagship builds to keep the section concise and punchy (Alexfolio Slide 2 style)
-  const featuredProjects = FEATURED.slice(0, 2);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: false,
+    dragFree: false,
+    containScroll: "trimSnaps",
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      setCanPrev(emblaApi.canScrollPrev());
+      setCanNext(emblaApi.canScrollNext());
+    };
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
+
   const archiveProjects = INDEX_ROWS.slice(0, 5);
 
   return (
@@ -29,93 +71,155 @@ export function ProjectsSection() {
         </div>
       </ScrollReveal>
 
-      <ScrollReveal className="mt-8">
-        <h2 className="text-[clamp(2.2rem,4.8vw,4.4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-white">
-          Featured Projects<span className="text-[#ff3b1f] ml-1">.</span>
-        </h2>
-        <p className="mt-3 max-w-[48ch] text-[14.5px] leading-[1.65] text-white/60">
-          Tactile hardware platforms, high-contrast design systems, and low-latency spatial interfaces.
-        </p>
+      {/* ================= TITLE & SLIDE CONTROLS */}
+      <ScrollReveal className="mt-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h2 className="text-[clamp(2.2rem,4.8vw,4.4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-white">
+            Featured Projects<span className="text-[#ff3b1f] ml-1">.</span>
+          </h2>
+          <p className="mt-3 max-w-[48ch] text-[14.5px] leading-[1.65] text-white/60">
+            Swipe left to explore hardware platforms, tactile systems, and spatial interfaces.
+          </p>
+        </div>
+
+        {/* Swipe arrow navigation & counter */}
+        <div className="flex items-center gap-3 self-end md:self-auto">
+          <span className="font-tech text-xs tracking-[0.2em] text-white/45 mr-1">
+            {`0${selectedIndex + 1} / 0${FEATURED.length}`}
+          </span>
+          <button
+            onClick={scrollPrev}
+            disabled={!canPrev}
+            aria-label="Previous project"
+            className={`flex size-10 items-center justify-center rounded-full border transition-all active:scale-95 ${
+              canPrev
+                ? "border-white/20 bg-white/5 text-white hover:border-white/50 hover:bg-white/10"
+                : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
+            }`}
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+          <button
+            onClick={scrollNext}
+            disabled={!canNext}
+            aria-label="Next project"
+            className={`flex size-10 items-center justify-center rounded-full border transition-all active:scale-95 ${
+              canNext
+                ? "border-white/20 bg-white/5 text-white hover:border-white/50 hover:bg-white/10"
+                : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
+            }`}
+          >
+            <ChevronRight className="size-5" />
+          </button>
+        </div>
       </ScrollReveal>
 
-      {/* ================= CONCISE WIDE BENTO CARDS (Alexfolio Slide 2 style) */}
-      <div className="mt-12 flex flex-col gap-8">
-        {featuredProjects.map((project, i) => (
-          <ScrollReveal key={project.title} delay={i * 80}>
-            <div className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-8 lg:p-9 transition-all duration-300 hover:border-white/20">
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-center">
-                {/* Left Column — Context & Details */}
-                <div className="lg:col-span-6 flex flex-col justify-between h-full">
-                  <div>
-                    {/* Year badge in parenthesis — Alexfolio style */}
-                    <div className="flex items-center gap-3">
-                      <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50">
-                        {`( ${project.year} )`}
-                      </span>
-                      <span className="inline-block rounded-sm bg-[#ff3b1f]/15 px-2 py-0.5 font-tech text-[10.5px] uppercase tracking-[0.14em] text-[#ff3b1f] font-semibold">
-                        {project.status}
-                      </span>
+      {/* ================= HORIZONTAL SWIPEABLE BENTO TRACK (Embla) */}
+      <div
+        className="mt-10 overflow-hidden cursor-grab active:cursor-grabbing select-none"
+        ref={emblaRef}
+      >
+        <div className="flex touch-pan-y -ml-6 md:-ml-8">
+          {FEATURED.map((project, i) => (
+            <div
+              key={project.title}
+              className="min-w-0 flex-[0_0_100%] pl-6 md:pl-8"
+            >
+              <div className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-8 lg:p-10 transition-all duration-300 hover:border-white/20">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-center">
+                  {/* Left Column — Context & Details */}
+                  <div className="lg:col-span-6 flex flex-col justify-between h-full">
+                    <div>
+                      {/* Year badge in parenthesis — Alexfolio style */}
+                      <div className="flex items-center gap-3">
+                        <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50">
+                          {`( ${project.year} )`}
+                        </span>
+                        <span className="inline-block rounded-sm bg-[#ff3b1f]/15 px-2 py-0.5 font-tech text-[10.5px] uppercase tracking-[0.14em] text-[#ff3b1f] font-semibold">
+                          {project.status}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-4 text-[clamp(1.9rem,3.2vw,3rem)] font-bold tracking-[-0.02em] text-white">
+                        {project.title}
+                      </h3>
+
+                      <p className="mt-4 max-w-[48ch] text-[14.5px] leading-[1.75] text-white/65 [text-wrap:pretty]">
+                        {project.desc}
+                      </p>
+
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {project.tags.split(" · ").map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-tech text-[11px] uppercase tracking-[0.12em] text-white/75"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    <h3 className="mt-4 text-[clamp(1.8rem,3vw,2.75rem)] font-bold tracking-[-0.02em] text-white">
-                      {project.title}
-                    </h3>
+                    <div className="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-between">
+                      <a
+                        href={project.href}
+                        target={project.href.startsWith("http") ? "_blank" : undefined}
+                        rel={project.href.startsWith("http") ? "noreferrer" : undefined}
+                        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black transition-transform duration-200 hover:scale-[1.02] hover:bg-white/90"
+                      >
+                        <span>Explore Project</span>
+                        <ArrowUpRight className="size-3.5" />
+                      </a>
 
-                    <p className="mt-3.5 max-w-[48ch] text-[14px] leading-[1.7] text-white/65 [text-wrap:pretty]">
-                      {project.desc}
-                    </p>
-
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {project.tags.split(" · ").map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-tech text-[11px] uppercase tracking-[0.12em] text-white/75"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                      <span className="hidden sm:inline font-tech text-[11px] text-white/35 uppercase tracking-[0.16em]">
+                        ← Drag / Swipe →
+                      </span>
                     </div>
                   </div>
 
-                  <div className="mt-7 pt-5 border-t border-white/[0.08]">
-                    <a
-                      href={project.href}
-                      target={project.href.startsWith("http") ? "_blank" : undefined}
-                      rel={project.href.startsWith("http") ? "noreferrer" : undefined}
-                      className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-[13px] font-semibold text-black transition-transform duration-200 hover:scale-[1.02] hover:bg-white/90"
-                    >
-                      <span>Explore Project</span>
-                      <ArrowUpRight className="size-3.5" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Right Column — Large Media Container */}
-                <div className="lg:col-span-6">
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4">
-                    {project.image ? (
-                      <div className="relative h-full w-full">
-                        <Image
-                          src={project.image}
-                          alt={project.imageAlt ?? project.title}
-                          fill
-                          className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
-                            project.imageFit === "contain" ? "object-contain" : "object-cover"
-                          }`}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center">
-                        <span className="font-black text-6xl text-white/10">
-                          {project.title.charAt(0)}
-                        </span>
-                      </div>
-                    )}
+                  {/* Right Column — Large Media Container */}
+                  <div className="lg:col-span-6">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4">
+                      {project.image ? (
+                        <div className="relative h-full w-full">
+                          <Image
+                            src={project.image}
+                            alt={project.imageAlt ?? project.title}
+                            fill
+                            className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
+                              project.imageFit === "contain" ? "object-contain" : "object-cover"
+                            }`}
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center">
+                          <span className="font-black text-6xl text-white/10">
+                            {project.title.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </ScrollReveal>
+          ))}
+        </div>
+      </div>
+
+      {/* Pagination Dot Indicators */}
+      <div className="mt-6 flex items-center justify-center gap-2">
+        {FEATURED.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => scrollTo(i)}
+            aria-label={`Jump to project ${i + 1}`}
+            className={`transition-all duration-300 rounded-full ${
+              selectedIndex === i
+                ? "w-8 h-2 bg-[#ff3b1f]"
+                : "w-2 h-2 bg-white/20 hover:bg-white/40"
+            }`}
+          />
         ))}
       </div>
 
