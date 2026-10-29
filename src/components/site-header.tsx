@@ -154,13 +154,38 @@ export function SiteHeader() {
     <>
       <ScrollProgress isDark={isDark} />
 
+      {/* Smooth soft fog dissolve layer across the top (no hard border lines!) */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 md:h-36 transition-opacity duration-500 ease-out ${
+          isScrolled ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {/* Progressive backdrop blur with feathered dissolve mask */}
+        <div
+          className="absolute inset-0 backdrop-blur-md"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.5) 75%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+
+        {/* Multi-stop smooth fog gradient */}
+        <div
+          className="absolute inset-0 transition-colors duration-500 ease-out"
+          style={{
+            background: isDark
+              ? "linear-gradient(to bottom, #0e0e0e 0%, #0e0e0e 38%, rgba(14,14,14,0.96) 50%, rgba(14,14,14,0.82) 62%, rgba(14,14,14,0.55) 75%, rgba(14,14,14,0.25) 88%, rgba(14,14,14,0) 100%)"
+              : "linear-gradient(to bottom, #e2e2e1 0%, #e2e2e1 38%, rgba(226,226,225,0.96) 50%, rgba(226,226,225,0.82) 62%, rgba(226,226,225,0.55) 75%, rgba(226,226,225,0.25) 88%, rgba(226,226,225,0) 100%)",
+          }}
+        />
+      </div>
+
       <header
-        className={`fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] transition-all duration-300 ease-out ${
-          isDark
-            ? "bg-[#0e0e0e]/92 backdrop-blur-xl border-b border-white/10 text-white shadow-2xl py-4"
-            : isScrolled
-            ? "bg-[#e2e2e1]/92 backdrop-blur-xl border-b border-black/8 text-[#0a0a0a] shadow-xs py-4"
-            : "bg-transparent border-b border-transparent text-[#0a0a0a] py-6"
+        className={`fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] py-5 md:py-6 transition-colors duration-300 ease-out bg-transparent border-none ${
+          isDark ? "text-white" : "text-[#0a0a0a]"
         }`}
       >
         {/* Brand */}
