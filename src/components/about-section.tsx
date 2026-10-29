@@ -1,147 +1,284 @@
-import { ArrowUpRight } from "lucide-react";
+"use client";
+
+import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { WordHighlightText } from "@/components/word-highlight-text";
 import { ContributionGraph } from "@/components/contribution-graph";
 import {
   RECOGNITION,
-  SKILL_GROUPS,
   BUILD_NOTES,
   LINKEDIN_ACTIVITY,
 } from "@/data/profile";
 
-const HEADLINE =
-  "I build where code meets circuits — connecting embedded systems, edge AI and Android.";
+const CAPABILITIES = [
+  {
+    num: "01",
+    title: "Embedded Systems & IoT",
+    desc: "Architecting reliable hardware and low-level firmware for IoT devices, telemetry co-pilots, and real-time robotic systems.",
+    items: [
+      { name: "C / C++ Firmware", id: "01" },
+      { name: "ESP32 & ARM Microcontrollers", id: "02" },
+      { name: "Raspberry Pi & Linux SBCs", id: "03" },
+      { name: "ROS & Hardware Telemetry", id: "04" },
+      { name: "Circuit Debugging & Logic Analysis", id: "05" },
+    ],
+  },
+  {
+    num: "02",
+    title: "Android & Linux Systems",
+    desc: "Deep platform engineering from bootchain bring-ups and kernel tuning to custom HAL drivers and AOSP ports.",
+    items: [
+      { name: "AOSP & Custom ROM Bring-up", id: "01" },
+      { name: "Linux Kernel & Device Trees", id: "02" },
+      { name: "Android HAL & Driver Debugging", id: "03" },
+      { name: "Smali Reverse Engineering", id: "04" },
+      { name: "Magisk & KernelSU Modules", id: "05" },
+    ],
+  },
+  {
+    num: "03",
+    title: "Edge AI & Computer Vision",
+    desc: "Deploying low-latency, offline-first neural network inference directly onto resource-constrained edge hardware.",
+    items: [
+      { name: "Python & Model Optimization", id: "01" },
+      { name: "Real-time Computer Vision", id: "02" },
+      { name: "Local LLMs & AI Agents", id: "03" },
+      { name: "Sensor Fusion & On-device ML", id: "04" },
+    ],
+  },
+];
+
+const AWARDS = [
+  {
+    project: "Fluxboard.AI",
+    award: "1st Place · 14.80 / 15",
+    event: "PIXEL.GEMINI · MLH 2026",
+    id: "01",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7436599170284552192/",
+    highlight: true,
+  },
+  {
+    project: "SentinelAI",
+    award: "Best Use of Google APIs",
+    event: "Gemini.exe 2.0 · MLH",
+    id: "02",
+    href: "https://devpost.com/software/sentinelai-n9y6fe",
+    highlight: false,
+  },
+  {
+    project: "GRASKILLS.AI",
+    award: "4th Place (of 34 Teams)",
+    event: "PROMPT. TRAIN. PARTY · MLH",
+    id: "03",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7434195127780388864/",
+    highlight: false,
+  },
+  {
+    project: "Galaxy A35 Bring-up",
+    award: "Android 16 GSI Port",
+    event: "Evolution X Open Source",
+    id: "04",
+    href: "https://www.linkedin.com/feed/update/urn:li:activity:7420800301407891456/",
+    highlight: false,
+  },
+  {
+    project: "Caelestia Shell",
+    award: "Ubuntu 26.04 Port",
+    event: "Hyprland Linux Ecosystem",
+    id: "05",
+    href: "https://github.com/StarDust-Git-Code/caelestia-shell-ubuntu_26",
+    highlight: false,
+  },
+];
 
 export function AboutSection() {
   return (
     <section id="about" className="border-t border-foreground/10 px-[4.5vw] py-28 md:py-36">
+      {/* ================= SECTION LABEL */}
       <ScrollReveal>
-        <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-foreground/50">
-          {"// About"}
+        <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-heat font-semibold">
+          {"// Intro"}
         </span>
       </ScrollReveal>
 
-      <div className="mt-10 grid grid-cols-1 gap-14 lg:grid-cols-12">
-        <ScrollReveal className="lg:col-span-7" delay={60}>
-          <h2
-            aria-label={HEADLINE}
-            className="text-[clamp(1.9rem,3.6vw,3.4rem)] font-bold leading-[1.3] tracking-[-0.02em]"
-          >
-            <WordHighlightText text={HEADLINE} />
+      {/* ================= STATEMENT (Alexfolio Image 2 & 3 style) */}
+      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
+        <ScrollReveal className="lg:col-span-8">
+          <h2 className="text-[clamp(2.2rem,4.4vw,4.2rem)] font-extrabold leading-[1.18] tracking-[-0.03em] [text-wrap:balance]">
+            I build where{" "}
+            <span className="text-heat">code meets circuits</span> — connecting{" "}
+            <span className="text-heat">embedded systems</span>,{" "}
+            <span className="text-heat">edge AI</span> and Android.
           </h2>
-          <p className="mt-8 max-w-[42rem] text-[15.5px] leading-[1.85] text-foreground/65 [text-wrap:pretty]">
-            I&apos;m a builder based in Chennai. My work
-            spans ESP32-based IoT, AI agents, Android system development and Linux
-            tooling. I enjoy understanding how software and hardware fit together,
-            then making that understanding useful through hands-on projects.
-          </p>
-          <p className="mt-5 max-w-[42rem] text-[15.5px] leading-[1.85] text-foreground/65 [text-wrap:pretty]">
-            From porting Caelestia Shell to Ubuntu to documenting the Galaxy A35
-            bring-up, I share the debugging, trade-offs and unfinished parts—not
-            just the final screenshot. I&apos;m also building my startup, STARBASE,
-            and exploring offline-first intelligence at the edge.
-          </p>
-          <a
-            href={LINKEDIN_ACTIVITY}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-7 inline-flex items-center gap-2 text-[13px] font-medium text-foreground/75 underline decoration-foreground/25 underline-offset-4 transition-colors hover:text-foreground"
-          >
-            Follow my build notes on LinkedIn
-            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </a>
         </ScrollReveal>
 
-        <ScrollReveal className="lg:col-span-5" delay={140}>
-          <aside aria-label="Recognition" className="border-t border-foreground/10 pt-6">
-            <h3 className="text-[15px] font-semibold">Recognition</h3>
-            <ul className="mt-3 divide-y divide-foreground/10">
-              {RECOGNITION.map((item) => (
-                <li key={item.title}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex gap-5 py-5"
-                  >
-                    <span
-                      className={`w-16 shrink-0 text-[30px] font-extrabold leading-none tracking-[-0.04em] ${item.highlight ? "text-heat" : "text-foreground/65"}`}
-                    >
-                      {item.result}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[14px] font-semibold group-hover:underline group-hover:underline-offset-4">
-                        {item.title}
-                      </p>
-                      <p className="mt-1 text-[12px] leading-[1.6] text-foreground/65">
-                        {item.event}
-                      </p>
-                      <p className="mt-1 text-[11.5px] leading-[1.6] text-foreground/50">
-                        {item.detail}
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      className="ml-auto size-3.5 shrink-0 text-foreground/40"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="text-[11px] leading-[1.6] text-foreground/50">
-              Project details and event recaps linked above.
-            </p>
-          </aside>
+        <ScrollReveal className="lg:col-span-4 lg:pt-3" delay={80}>
+          <p className="text-[15px] leading-[1.8] text-foreground/65 [text-wrap:pretty]">
+            I&apos;m a builder based in Chennai, India. I bridge low-level firmware,
+            Linux kernels, and neural net execution at the edge. I share the raw
+            debugging, trade-offs, and hardware bring-ups — not just the final screenshot.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[13px] font-medium text-background transition-transform duration-200 hover:scale-[1.03]"
+            >
+              <span>See my Work</span>
+              <ArrowDown className="size-3.5" />
+            </a>
+            <a
+              href={LINKEDIN_ACTIVITY}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-[13px] font-medium text-foreground/75 underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
+            >
+              <span>Build notes</span>
+              <ArrowUpRight className="size-3.5" />
+            </a>
+          </div>
         </ScrollReveal>
       </div>
 
-      <div className="mt-20 border-t border-foreground/10 pt-8">
-        <h3 className="text-[18px] font-semibold tracking-[-0.02em]">Tools I work with</h3>
-        <div className="mt-7 grid gap-8 md:grid-cols-3 md:gap-12">
-          {SKILL_GROUPS.map((group) => (
-            <div key={group.title}>
-              <h4 className="text-[13px] font-semibold">{group.title}</h4>
-              <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2.5 text-[12.5px] leading-[1.6] text-foreground/60">
-                {group.skills.map((skill) => (
-                  <li key={skill}>{skill}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ================= RECOGNITION / AWARDS TABLE (Alexfolio Image 3 Top) */}
+      <div className="mt-28">
+        <ScrollReveal>
+          <div className="flex items-end justify-between border-b border-foreground/10 pb-4">
+            <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-foreground/50">
+              {"// Recognition & Milestones"}
+            </span>
+            <span className="hidden md:inline font-tech text-[11px] uppercase tracking-[0.2em] text-foreground/40">
+              Verified Placements
+            </span>
+          </div>
+        </ScrollReveal>
 
-      <div className="mt-16 border-t border-foreground/10 pt-8">
-        <h3 className="text-[18px] font-semibold tracking-[-0.02em]">From the workbench</h3>
-        <p className="mt-2 text-[13px] text-foreground/55">
-          Personal projects and development notes from my workbench.
-        </p>
-        <div className="mt-7 grid gap-10 md:grid-cols-2 md:gap-16">
-          {BUILD_NOTES.map((note) => (
-            <article key={note.title}>
-              <p className="font-tech text-[11px] text-foreground/50">
-                {note.status}
-              </p>
-              <h4 className="mt-2 text-[17px] font-semibold tracking-[-0.02em]">
-                {note.title}
-              </h4>
-              <p className="mt-3 max-w-[60ch] text-[13px] leading-[1.8] text-foreground/60">
-                {note.description}
-              </p>
+        <div className="mt-2">
+          {AWARDS.map((item, i) => (
+            <ScrollReveal key={item.project} delay={i * 50}>
               <a
-                href={note.href}
+                href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-[12px] font-medium underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
+                className="group grid grid-cols-2 md:grid-cols-12 items-center gap-4 py-5 border-b border-foreground/8 transition-colors duration-200 hover:bg-foreground/[0.02] px-2"
               >
-                {note.linkLabel}
-                <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                <div className="col-span-1 md:col-span-4 flex items-center gap-3">
+                  <span className="text-[16px] md:text-[17px] font-semibold text-foreground group-hover:underline underline-offset-4">
+                    {item.project}
+                  </span>
+                  {item.highlight ? (
+                    <span className="size-1.5 rounded-full bg-heat" title="1st Place" />
+                  ) : null}
+                </div>
+                <div className="col-span-1 md:col-span-4 text-right md:text-left text-[14px] text-foreground/70 font-medium">
+                  <span className={item.highlight ? "text-heat font-semibold" : ""}>
+                    {item.award}
+                  </span>
+                </div>
+                <div className="hidden md:block md:col-span-3 text-[13px] text-foreground/45 font-tech">
+                  {item.event}
+                </div>
+                <div className="hidden md:flex md:col-span-1 items-center justify-end gap-2 font-tech text-[12px] text-foreground/35">
+                  <span>{item.id}</span>
+                  <ArrowUpRight className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
               </a>
-            </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>
 
+      {/* ================= CAPABILITIES / SERVICES (Alexfolio Image 3 Bottom) */}
+      <div className="mt-28">
+        <ScrollReveal>
+          <div className="flex items-end justify-between border-b border-foreground/10 pb-4">
+            <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-heat font-semibold">
+              {"// Capabilities & Core Stack"}
+            </span>
+            <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-foreground/40">
+              Hardware to Software
+            </span>
+          </div>
+        </ScrollReveal>
+
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {CAPABILITIES.map((cap, i) => (
+            <ScrollReveal key={cap.num} delay={i * 80}>
+              <div className="flex flex-col justify-between h-full rounded-2xl border border-foreground/10 bg-card/60 p-8 md:p-9 transition-all duration-300 hover:border-foreground/25">
+                <div>
+                  {/* Giant stroked outline number (Alexfolio Image 3 style) */}
+                  <span className="text-outline font-black text-[clamp(4.5rem,7vw,6.5rem)] leading-none select-none tracking-tighter">
+                    {cap.num}
+                  </span>
+
+                  <h3 className="mt-6 text-[22px] font-bold tracking-[-0.02em] text-foreground">
+                    {cap.title}
+                  </h3>
+
+                  <p className="mt-3 text-[13.5px] leading-[1.7] text-foreground/60 [text-wrap:pretty]">
+                    {cap.desc}
+                  </p>
+                </div>
+
+                <ul className="mt-8 border-t border-foreground/10 pt-4 divide-y divide-foreground/6">
+                  {cap.items.map((tech) => (
+                    <li
+                      key={tech.name}
+                      className="flex items-center justify-between py-2.5 text-[12.5px] font-medium text-foreground/75"
+                    >
+                      <span>{tech.name}</span>
+                      <span className="font-tech text-[11px] text-foreground/35">
+                        {tech.id}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= FROM THE WORKBENCH */}
+      <div className="mt-28">
+        <ScrollReveal>
+          <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-foreground/50">
+            {"// From the Workbench"}
+          </span>
+          <h3 className="mt-4 text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em]">
+            Active Bring-ups &amp; Labs
+          </h3>
+        </ScrollReveal>
+
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {BUILD_NOTES.map((note, i) => (
+            <ScrollReveal key={note.title} delay={i * 80}>
+              <div className="flex flex-col justify-between h-full rounded-2xl border border-foreground/10 bg-card/40 p-8">
+                <div>
+                  <span className="inline-block rounded-sm bg-foreground/5 px-2.5 py-1 font-tech text-[10.5px] uppercase tracking-[0.14em] text-foreground/60">
+                    {note.status}
+                  </span>
+                  <h4 className="mt-4 text-[19px] font-bold tracking-[-0.01em]">
+                    {note.title}
+                  </h4>
+                  <p className="mt-3 text-[13.5px] leading-[1.75] text-foreground/60 [text-wrap:pretty]">
+                    {note.description}
+                  </p>
+                </div>
+                <a
+                  href={note.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 text-[12.5px] font-medium text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground"
+                >
+                  {note.linkLabel}
+                  <ArrowUpRight className="size-3.5" />
+                </a>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= GITHUB GRAPH */}
       <ContributionGraph username="StarDust-Git-Code" />
     </section>
   );
