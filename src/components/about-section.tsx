@@ -2,7 +2,6 @@
 
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
-import { ContributionGraph } from "@/components/contribution-graph";
 import {
   BUILD_NOTES,
   LINKEDIN_ACTIVITY,
@@ -187,8 +186,6 @@ export function AboutSection() {
         </div>
       </div>
 
-      {/* ================= GITHUB GRAPH */}
-      <ContributionGraph username="StarDust-Git-Code" />
     </section>
   );
 }
