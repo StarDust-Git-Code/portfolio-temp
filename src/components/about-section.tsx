@@ -7,43 +7,6 @@ import {
   LINKEDIN_ACTIVITY,
 } from "@/data/profile";
 
-const CAPABILITIES = [
-  {
-    num: "01",
-    title: "Embedded Systems & IoT",
-    desc: "Architecting reliable hardware and low-level firmware for IoT devices, telemetry co-pilots, and real-time robotic systems.",
-    items: [
-      { name: "C / C++ Firmware", id: "01" },
-      { name: "ESP32 & ARM Microcontrollers", id: "02" },
-      { name: "Raspberry Pi & Linux SBCs", id: "03" },
-      { name: "ROS & Hardware Telemetry", id: "04" },
-      { name: "Circuit Debugging & Logic Analysis", id: "05" },
-    ],
-  },
-  {
-    num: "02",
-    title: "Android & Linux Systems",
-    desc: "Deep platform engineering from bootchain bring-ups and kernel tuning to custom HAL drivers and AOSP ports.",
-    items: [
-      { name: "AOSP & Custom ROM Bring-up", id: "01" },
-      { name: "Linux Kernel & Device Trees", id: "02" },
-      { name: "Android HAL & Driver Debugging", id: "03" },
-      { name: "Smali Reverse Engineering", id: "04" },
-      { name: "Magisk & KernelSU Modules", id: "05" },
-    ],
-  },
-  {
-    num: "03",
-    title: "Edge AI & Computer Vision",
-    desc: "Deploying low-latency, offline-first neural network inference directly onto resource-constrained edge hardware.",
-    items: [
-      { name: "Python & Model Optimization", id: "01" },
-      { name: "Real-time Computer Vision", id: "02" },
-      { name: "Local LLMs & AI Agents", id: "03" },
-      { name: "Sensor Fusion & On-device ML", id: "04" },
-    ],
-  },
-];
 
 
 export function AboutSection() {
@@ -92,57 +55,6 @@ export function AboutSection() {
             </a>
           </div>
         </ScrollReveal>
-      </div>
-
-      {/* ================= CAPABILITIES / SERVICES (Alexfolio Image 3 Bottom) */}
-      <div className="mt-28">
-        <ScrollReveal>
-          <div className="flex items-end justify-between border-b border-white/[0.08] pb-4">
-            <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-              {"// Capabilities & Core Stack"}
-            </span>
-            <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-white/40">
-              Hardware to Software
-            </span>
-          </div>
-        </ScrollReveal>
-
-        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {CAPABILITIES.map((cap, i) => (
-            <ScrollReveal key={cap.num} delay={i * 80}>
-              <div className="flex flex-col justify-between h-full rounded-3xl border border-white/[0.08] bg-[#141414] p-8 md:p-10 transition-all duration-300 hover:border-white/20 hover:bg-[#161616]">
-                <div>
-                  {/* Giant stroked outline number (Alexfolio Image 3 style) */}
-                  <span className="text-outline font-black text-[clamp(4.5rem,7vw,6.5rem)] leading-none select-none tracking-tighter">
-                    {cap.num}
-                  </span>
-
-                  <h3 className="mt-6 text-[22px] font-bold tracking-[-0.02em] text-white">
-                    {cap.title}
-                  </h3>
-
-                  <p className="mt-3 text-[13.5px] leading-[1.7] text-white/60 [text-wrap:pretty]">
-                    {cap.desc}
-                  </p>
-                </div>
-
-                <ul className="mt-8 border-t border-white/[0.08] pt-4 divide-y divide-white/[0.06]">
-                  {cap.items.map((tech) => (
-                    <li
-                      key={tech.name}
-                      className="flex items-center justify-between py-2.5 text-[12.5px] font-medium text-white/80"
-                    >
-                      <span>{tech.name}</span>
-                      <span className="font-tech text-[11px] text-white/35">
-                        {tech.id}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
       </div>
 
       {/* ================= FROM THE WORKBENCH */}
