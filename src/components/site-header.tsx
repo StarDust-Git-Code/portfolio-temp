@@ -27,7 +27,7 @@ const SOCIALS = [
 ] as const;
 
 /** 1px scroll-progress hairline riding the very top edge */
-function ScrollProgress() {
+function ScrollProgress({ isDark }: { isDark: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,7 +53,9 @@ function ScrollProgress() {
     >
       <div
         ref={ref}
-        className="h-full w-full origin-left scale-x-0 bg-foreground/70 transition-transform duration-75 ease-linear"
+        className={`h-full w-full origin-left scale-x-0 transition-transform duration-75 ease-linear ${
+          isDark ? "bg-white/80" : "bg-[#0a0a0a]/80"
+        }`}
       />
     </div>
   );
@@ -116,9 +118,23 @@ function HamburgerIcon({ open }: { open: boolean }) {
 export function SiteHeader() {
   const [active, setActive] = useState<string>("About");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+
+      const aboutEl = document.getElementById("about");
+      if (aboutEl) {
+        const rect = aboutEl.getBoundingClientRect();
+        // Switch to dark header when the #about section enters the top viewport range
+        setIsDark(rect.top <= 80);
+      } else {
+        setIsDark(false);
+      }
+
       const ids = NAV_ITEMS.map((i) => i.href.slice(1));
       let current = "";
       for (const id of ids) {
@@ -136,29 +152,33 @@ export function SiteHeader() {
 
   return (
     <>
-      <ScrollProgress />
+      <ScrollProgress isDark={isDark} />
 
-      {/* Soft blended fade across top */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-32 backdrop-blur-md"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 40%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 40%, transparent 100%)",
-        }}
-      />
-
-      <header className="fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] py-6">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-6 px-[4.5vw] transition-all duration-300 ease-out ${
+          isDark
+            ? "bg-[#0e0e0e]/92 backdrop-blur-xl border-b border-white/10 text-white shadow-2xl py-4"
+            : isScrolled
+            ? "bg-[#e2e2e1]/92 backdrop-blur-xl border-b border-black/8 text-[#0a0a0a] shadow-xs py-4"
+            : "bg-transparent border-b border-transparent text-[#0a0a0a] py-6"
+        }`}
+      >
         {/* Brand */}
         <Link
           href="#home"
           className="group flex items-center gap-2.5 justify-self-start"
           aria-label="Irshad Ahamed — home"
         >
-          <StarLogo className="size-4.5 text-foreground transition-transform duration-500 group-hover:rotate-45" />
-          <span className="whitespace-nowrap text-[13px] font-semibold tracking-[0.16em] uppercase text-foreground">
+          <StarLogo
+            className={`size-4.5 transition-transform duration-500 group-hover:rotate-45 ${
+              isDark ? "text-white" : "text-[#0a0a0a]"
+            }`}
+          />
+          <span
+            className={`whitespace-nowrap text-[13px] font-semibold tracking-[0.16em] uppercase transition-colors duration-200 ${
+              isDark ? "text-white" : "text-[#0a0a0a]"
+            }`}
+          >
             Irshad Ahamed
           </span>
         </Link>
@@ -174,12 +194,22 @@ export function SiteHeader() {
               href={item.href}
               aria-current={active === item.label ? "page" : undefined}
               data-current={active === item.label}
-              className="group relative flex flex-col items-center text-[14px] text-foreground/75 transition-colors duration-200 hover:text-foreground data-[current=true]:font-medium data-[current=true]:text-foreground"
+              className={`group relative flex flex-col items-center text-[14px] transition-colors duration-200 ${
+                isDark
+                  ? active === item.label
+                    ? "font-medium text-white"
+                    : "text-white/70 hover:text-white"
+                  : active === item.label
+                  ? "font-medium text-[#0a0a0a]"
+                  : "text-[#0a0a0a]/75 hover:text-[#0a0a0a]"
+              }`}
             >
               <span>{item.label}</span>
               <span
                 aria-hidden="true"
-                className={`mt-1 size-1 rounded-full bg-foreground transition-all duration-300 ${
+                className={`mt-1 size-1 rounded-full transition-all duration-300 ${
+                  isDark ? "bg-white" : "bg-[#0a0a0a]"
+                } ${
                   active === item.label ? "opacity-100 scale-100" : "opacity-0 scale-0"
                 }`}
               />
@@ -191,7 +221,11 @@ export function SiteHeader() {
         <div className="justify-self-end">
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium text-foreground/75 hover:text-foreground transition-colors group"
+            className={`hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium transition-colors group ${
+              isDark
+                ? "text-white/80 hover:text-white"
+                : "text-[#0a0a0a]/80 hover:text-[#0a0a0a]"
+            }`}
           >
             <span>Get in touch</span>
             <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -203,7 +237,11 @@ export function SiteHeader() {
               <SheetTrigger asChild>
                 <button
                   aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                  className="flex size-9 items-center justify-center rounded-full border border-foreground/15 bg-background/70 text-foreground transition-all duration-200 hover:border-foreground/40"
+                  className={`flex size-9 items-center justify-center rounded-full border transition-all duration-200 ${
+                    isDark
+                      ? "border-white/15 bg-white/5 text-white hover:border-white/40"
+                      : "border-black/15 bg-black/5 text-[#0a0a0a] hover:border-black/40"
+                  }`}
                 >
                   <HamburgerIcon open={mobileOpen} />
                 </button>
@@ -212,24 +250,24 @@ export function SiteHeader() {
               <SheetContent
                 side="right"
                 showCloseButton={false}
-                className="w-full sm:max-w-xs border-l border-foreground/10 bg-background px-0 pt-0"
+                className="w-full sm:max-w-xs border-l border-white/10 bg-[#0e0e0e] text-white px-0 pt-0"
               >
-                <div className="flex items-center justify-between px-6 py-6 border-b border-foreground/10">
+                <div className="flex items-center justify-between px-6 py-6 border-b border-white/10">
                   <Link
                     href="#home"
                     onClick={() => setMobileOpen(false)}
                     className="flex items-center gap-2.5"
                     aria-label="Irshad Ahamed — home"
                   >
-                    <StarLogo className="size-4.5 text-foreground" />
-                    <span className="text-[12px] font-semibold tracking-[0.16em] uppercase">
+                    <StarLogo className="size-4.5 text-white" />
+                    <span className="text-[12px] font-semibold tracking-[0.16em] uppercase text-white">
                       Irshad Ahamed
                     </span>
                   </Link>
                   <SheetClose asChild>
                     <button
                       aria-label="Close menu"
-                      className="flex size-9 items-center justify-center rounded-full border border-foreground/15 bg-background text-foreground"
+                      className="flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white"
                     >
                       <HamburgerIcon open={true} />
                     </button>
@@ -242,18 +280,18 @@ export function SiteHeader() {
                       <Link
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className="group flex items-center justify-between border-b border-foreground/8 py-5"
+                        className="group flex items-center justify-between border-b border-white/10 py-5"
                       >
                         <span
                           className={`text-[28px] font-extrabold tracking-[-0.03em] ${
                             active === item.label
-                              ? "text-foreground"
-                              : "text-foreground/40 group-hover:text-foreground"
+                              ? "text-white"
+                              : "text-white/40 group-hover:text-white"
                           }`}
                         >
                           {item.label}
                         </span>
-                        <span className="font-tech text-[11px] uppercase tracking-[0.18em] text-foreground/30">
+                        <span className="font-tech text-[11px] uppercase tracking-[0.18em] text-white/30">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </Link>
@@ -262,7 +300,7 @@ export function SiteHeader() {
                 </nav>
 
                 <div className="absolute bottom-10 left-6 flex flex-col gap-4">
-                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-foreground/35">
+                  <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-white/35">
                     {"// Social"}
                   </span>
                   <div className="flex items-center gap-4">
@@ -273,7 +311,7 @@ export function SiteHeader() {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={label}
-                        className="flex items-center gap-2 text-[13px] text-foreground/60 transition-colors hover:text-foreground"
+                        className="flex items-center gap-2 text-[13px] text-white/60 transition-colors hover:text-white"
                       >
                         <Icon className="size-4" aria-hidden="true" />
                         <span>{label}</span>

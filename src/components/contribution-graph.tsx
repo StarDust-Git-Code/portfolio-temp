@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 type Day = { date: string; count: number; level: 0 | 1 | 2 | 3 | 4 };
 
 const LEVEL_FILLS = [
-  "rgba(10,10,10,0.06)",
-  "rgba(10,10,10,0.18)",
-  "rgba(10,10,10,0.34)",
-  "rgba(10,10,10,0.58)",
-  "rgba(10,10,10,0.92)",
+  "rgba(255,255,255,0.08)",
+  "rgba(255,255,255,0.22)",
+  "rgba(255,255,255,0.45)",
+  "rgba(255,255,255,0.70)",
+  "rgba(255,255,255,0.95)",
 ] as const;
 
 const WEEKS = 26; // half a year of shipping
