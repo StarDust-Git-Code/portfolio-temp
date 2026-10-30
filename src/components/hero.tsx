@@ -130,7 +130,7 @@ export function Hero() {
       {/* ================= PORTRAIT — z-10 (behind AHAMED, in front of IRSHAD) */}
       {/* Zoomed in: head and upper chest dominate the center, stomach/waist clipped below */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-10 flex justify-center overflow-hidden"
+        className="hero-portrait-blend pointer-events-none absolute inset-x-0 top-0 bottom-0 z-10 flex justify-center overflow-hidden"
         data-portrait
       >
         {/* Desktop portrait: h-[116vh], anchored near top so head is 45% of viewport */}

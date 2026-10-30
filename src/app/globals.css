@@ -261,6 +261,28 @@
   background-size: 100% 1px;
 }
 
+/* Hero portrait bottom feather blend: smoothly dissolves hoodie into transition */
+.hero-portrait-blend {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 48%,
+    rgba(0, 0, 0, 0.78) 65%,
+    rgba(0, 0, 0, 0.42) 78%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 98%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 48%,
+    rgba(0, 0, 0, 0.78) 65%,
+    rgba(0, 0, 0, 0.42) 78%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 98%
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .heat-dot {
     animation: none;
