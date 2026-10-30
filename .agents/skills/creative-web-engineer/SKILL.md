@@ -172,3 +172,4 @@ export function ProjectDrawer({ trigger, title, children }) {
 3. **Prefers-Reduced-Motion**: Always respect accessibility preferences via `window.matchMedia('(prefers-reduced-motion: reduce)')`.
 4. **Mobile Fallback**: Suppress intense 3D parallax tilt (`react-parallax-tilt`) on touch devices using `isMobile` from `react-device-detect` to save battery and touch lag.
 5. **No Layout Shifts**: Pair `react-wrap-balancer` on display typography with explicit aspect-ratio containers.
+
