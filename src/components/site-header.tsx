@@ -293,7 +293,7 @@ export function SiteHeader() {
 
                 <div className="absolute bottom-10 left-6 flex flex-col gap-4">
                   <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-white/40">
-                    {"// Social"}
+                    Social
                   </span>
                   <div className="flex items-center gap-4">
                     {SOCIALS.map(({ label, href, Icon }) => (

@@ -28,7 +28,7 @@ export function AboutSection() {
     <section id="about" className="border-t border-white/[0.08] px-[4.5vw] py-28 md:py-36">
       {/* ================= SECTION LABEL */}
       <HeadingReveal
-        text="// Intro"
+        text="Engineering"
         headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
       />
 
@@ -74,7 +74,7 @@ export function AboutSection() {
       <div className="mt-28 md:mt-36">
         <ScrollReveal>
           <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-            {"// Active Bring-ups & Labs"}
+            Active Bring-ups &amp; Labs
           </span>
         </ScrollReveal>
         <HeadingReveal
@@ -98,20 +98,17 @@ export function AboutSection() {
               <ScrollReveal key={note.title} delay={i * 80}>
                 <div className="group relative flex flex-col justify-between h-full rounded-3xl border border-white/[0.08] bg-[#141414] p-7 sm:p-8 md:p-10 transition-all duration-300 hover:border-white/20 hover:bg-[#161616]">
                   <div>
-                    {/* Header: Status badge + Large stroked index numeral */}
+                    {/* Header: Status badge */}
                     <div className="flex items-start justify-between gap-4">
                       <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1 font-tech text-[10.5px] uppercase tracking-[0.14em] text-white/80">
                         <span className="size-1.5 rounded-full bg-[#ff3b1f] animate-pulse" />
                         {meta.badge}
                       </span>
-                      <span className="font-sans text-5xl md:text-6xl font-black tracking-tighter text-outline select-none leading-none opacity-40 group-hover:opacity-75 transition-opacity">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
                     </div>
 
                     {/* Platform */}
-                    <div className="mt-6 font-tech text-[11.5px] uppercase tracking-[0.16em] text-[#ff3b1f] font-semibold">
-                      {"// "}{meta.platform}
+                    <div className="mt-5 font-tech text-[11.5px] uppercase tracking-[0.16em] text-[#ff3b1f] font-semibold">
+                      {meta.platform}
                     </div>
 
                     {/* Title */}
@@ -160,7 +157,7 @@ export function AboutSection() {
       <div className="mt-28 md:mt-36">
         <ScrollReveal>
           <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-            {"// Recognition"}
+            Recognition &amp; Milestones
           </span>
         </ScrollReveal>
         <HeadingReveal

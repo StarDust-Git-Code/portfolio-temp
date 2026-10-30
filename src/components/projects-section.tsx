@@ -80,7 +80,7 @@ export function ProjectsSection() {
       {/* ================= SECTION HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
         <HeadingReveal
-          text="// Selected Work"
+          text="Selected Work"
           headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
         />
         <a
@@ -103,14 +103,14 @@ export function ProjectsSection() {
             extra={<span className="text-[#ff3b1f] ml-1">.</span>}
           />
           <p className="mt-3 max-w-[50ch] text-[14.5px] leading-[1.65] text-white/60">
-            Engineered platforms spanning multimodal AI agents, edge surveillance silicon, neural wearables, and connected IoT systems.
+            Hardware bring-ups, edge AI agents, and custom firmware built in hackathons and my personal lab.
           </p>
         </div>
 
         {/* Swipe arrow navigation & Kinetic rolling NumberFlow counter */}
         <div className="flex items-center gap-3 self-start md:self-auto">
           <div className="flex items-center font-tech text-xs tracking-[0.2em] text-white/50 mr-1 select-none">
-            <span className="text-[#ff3b1f] font-semibold mr-1">{"//"}</span>
+            <span className="size-1.5 rounded-full bg-[#ff3b1f] mr-2 inline-block" />
             <NumberFlow
               value={selectedIndex + 1}
               format={{ minimumIntegerDigits: 2 }}
@@ -290,7 +290,7 @@ export function ProjectsSection() {
       <div className="mt-20 md:mt-28">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
           <HeadingReveal
-            text="// Project Archive & Ports"
+            text="Archive & Ports"
             headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50 font-semibold"
           />
           <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-white/40">

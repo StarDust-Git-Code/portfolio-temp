@@ -50,7 +50,7 @@ export function ContactSection() {
       {/* ================= SECTION HEADER */}
       <div className="border-b border-white/[0.08] pb-4">
         <HeadingReveal
-          text="// Contact"
+          text="Contact"
           headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
         />
       </div>
@@ -146,7 +146,7 @@ export function ContactSection() {
             <span className="text-white/45 hidden sm:inline">13.0827° N, 80.2707° E</span>
           </div>
           <div className="flex items-center gap-4 text-white/45">
-            <span>{"// TIMEZONE: UTC+05:30 (IST)"}</span>
+            <span>TIMEZONE: UTC+05:30 (IST)</span>
             <span className="hidden md:inline text-white/20">·</span>
             <span className="hidden md:inline">TYPICAL RESPONSE &lt; 24H</span>
           </div>
