@@ -25,7 +25,7 @@ const YEAR = new Date().getFullYear();
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/[0.08] bg-[#0c0c0c] px-[4.5vw] py-10">
+    <footer className="border-t border-white/[0.08] bg-[#0c0c0c] px-[4.5vw] py-8">
       <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
         <Link href="#home" className="flex items-center gap-2.5">
           <StarLogo className="size-5 text-white" />
