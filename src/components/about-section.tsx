@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Terminal } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { HeadingReveal } from "@/components/heading-reveal";
 import { WordHighlightText } from "@/components/word-highlight-text";
@@ -10,16 +10,32 @@ import {
   LINKEDIN_ACTIVITY,
 } from "@/data/profile";
 
-const WORKBENCH_METADATA = [
+const WORKBENCH_DETAILS = [
   {
     platform: "AOSP · Android 16 GSI · Kernel",
     badge: "ACTIVE BRING-UP · 2026",
     highlights: ["Android 16 GSI", "120Hz Display", "Cellular & GPS", "Device Tree"],
+    triad: {
+      constraint:
+        "Samsung's Exynos 1380 bootchain lacks upstream AOSP sources and bootloops on generic AOSP GSI builds.",
+      decision:
+        "Extracted proprietary vendor blobs, reconstructed overlay device tree, and patched display HAL to initialize the 120Hz AMOLED driver.",
+      result:
+        "Successfully booted Android 16 GSI with functioning cellular, GPS, and full 120Hz display refresh.",
+    },
   },
   {
     platform: "Edge AI · Local Memory · Next.js",
     badge: "PERSONAL LAB · 2026",
     highlights: ["AI Second Brain", "Self-Hosted", "Local Knowledge", "Mobile PWA"],
+    triad: {
+      constraint:
+        "Raw continuous audio transmission over cellular drained wearable battery in under 3 hours.",
+      decision:
+        "Implemented on-device Voice Activity Detection (VAD) and integrated a self-hosted vector database with offline PWA synchronization.",
+      result:
+        "Achieved multi-day battery endurance with sub-100ms semantic memory search on mobile.",
+    },
   },
 ];
 
@@ -33,14 +49,17 @@ export function AboutSection() {
       />
 
       {/* ================= STATEMENT */}
-      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
         <div className="lg:col-span-8">
           <h2
-            aria-label="I build where code meets software — connecting embedded systems, edge AI and Android."
-            className="text-[clamp(2.2rem,4.4vw,4.2rem)] font-extrabold leading-[1.18] tracking-[-0.03em] text-white [text-wrap:balance]"
+            aria-label="I build where code meets software."
+            className="text-[clamp(2.2rem,4.2vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance]"
           >
-            <WordHighlightText text="I build where code meets software — connecting embedded systems, edge AI and Android." />
+            <WordHighlightText text="I build where code meets software." />
           </h2>
+          <p className="mt-4 text-[clamp(1.15rem,2vw,1.5rem)] text-white/70 font-medium leading-[1.45] max-w-2xl [text-wrap:pretty]">
+            Connecting embedded systems, edge AI, and Android at the hardware boundary.
+          </p>
         </div>
 
         <ScrollReveal className="lg:col-span-4 lg:pt-3" delay={80}>
@@ -72,14 +91,9 @@ export function AboutSection() {
 
       {/* ================= FROM THE WORKBENCH */}
       <div className="mt-28 md:mt-36">
-        <ScrollReveal>
-          <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-            Active Bring-ups &amp; Labs
-          </span>
-        </ScrollReveal>
         <HeadingReveal
           text="From the Workbench"
-          headingClassName="mt-2 text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
+          headingClassName="text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
         />
         <ScrollReveal delay={60}>
           <p className="mt-2 text-[14px] text-white/50 max-w-xl [text-wrap:pretty]">
@@ -89,11 +103,17 @@ export function AboutSection() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {BUILD_NOTES.map((note, i) => {
-            const meta = WORKBENCH_METADATA[i] ?? {
+            const meta = WORKBENCH_DETAILS[i] ?? {
               platform: "Edge Computing",
               badge: "ACTIVE BRING-UP · 2026",
               highlights: [],
+              triad: {
+                constraint: "Hardware constraints under evaluation.",
+                decision: "Custom firmware implementation in progress.",
+                result: "Documented in laboratory bring-up logs.",
+              },
             };
+
             return (
               <ScrollReveal key={note.title} delay={i * 80}>
                 <div className="group relative flex flex-col justify-between h-full rounded-3xl border border-white/[0.08] bg-[#141414] p-7 sm:p-8 md:p-10 transition-all duration-300 hover:border-white/20 hover:bg-[#161616]">
@@ -132,6 +152,36 @@ export function AboutSection() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Decision Triad for Workbench Cards */}
+                    <div className="mt-6 rounded-2xl border border-white/[0.08] bg-[#0c0c0c] p-4">
+                      <div className="flex items-center gap-2 pb-2.5 border-b border-white/[0.06]">
+                        <Terminal className="size-3 text-[#ff3b1f]" />
+                        <span className="font-tech text-[10px] uppercase tracking-[0.18em] text-white/70 font-semibold">
+                          Bring-up Decisions
+                        </span>
+                      </div>
+                      <div className="mt-3 space-y-2.5 text-[12px] leading-[1.6]">
+                        <div className="flex flex-col sm:flex-row sm:gap-2">
+                          <span className="font-tech text-[9.5px] uppercase tracking-[0.14em] text-amber-400 font-semibold sm:w-24 shrink-0">
+                            Constraint:
+                          </span>
+                          <span className="text-white/60">{meta.triad.constraint}</span>
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:gap-2">
+                          <span className="font-tech text-[9.5px] uppercase tracking-[0.14em] text-cyan-400 font-semibold sm:w-24 shrink-0">
+                            Decision:
+                          </span>
+                          <span className="text-white/60">{meta.triad.decision}</span>
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:gap-2">
+                          <span className="font-tech text-[9.5px] uppercase tracking-[0.14em] text-emerald-400 font-semibold sm:w-24 shrink-0">
+                            Result:
+                          </span>
+                          <span className="text-white/75">{meta.triad.result}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Bottom Link Action */}
@@ -155,14 +205,9 @@ export function AboutSection() {
 
       {/* ================= RECOGNITION & MILESTONES */}
       <div className="mt-28 md:mt-36">
-        <ScrollReveal>
-          <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
-            Recognition &amp; Milestones
-          </span>
-        </ScrollReveal>
         <HeadingReveal
           text="Recognition & Milestones"
-          headingClassName="mt-2 text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
+          headingClassName="text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
         />
         <ScrollReveal delay={60}>
           <p className="mt-2 text-[14px] text-white/50 max-w-xl [text-wrap:pretty]">

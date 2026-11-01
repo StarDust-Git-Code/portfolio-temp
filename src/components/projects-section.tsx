@@ -4,9 +4,16 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import NumberFlow from "@number-flow/react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import Tilt from "react-parallax-tilt";
-import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Activity,
+  Layers,
+} from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { HeadingReveal } from "@/components/heading-reveal";
 import { FEATURED, INDEX_ROWS, GITHUB_PROFILE } from "@/data/projects";
@@ -22,6 +29,18 @@ export function ProjectsSection() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+
+  // Active interactive mode toggle for each project index
+  const [activeModes, setActiveModes] = useState<Record<number, number>>({
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+  });
+
+  const setMode = useCallback((projectIdx: number, modeIdx: number) => {
+    setActiveModes((prev) => ({ ...prev, [projectIdx]: modeIdx }));
+  }, []);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -102,15 +121,16 @@ export function ProjectsSection() {
             headingClassName="text-[clamp(1.95rem,4.8vw,4.4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-white"
             extra={<span className="text-[#ff3b1f] ml-1">.</span>}
           />
-          <p className="mt-3 max-w-[50ch] text-[14.5px] leading-[1.65] text-white/60">
+          <p className="mt-3 max-w-[54ch] text-[14.5px] leading-[1.65] text-white/60">
             Hardware bring-ups, edge AI agents, and custom firmware built in hackathons and my personal lab.
+            Toggle architecture modes below for live telemetry.
           </p>
         </div>
 
         {/* Swipe arrow navigation & Kinetic rolling NumberFlow counter */}
         <div className="flex items-center gap-3 self-start md:self-auto">
           <div className="flex items-center font-tech text-xs tracking-[0.2em] text-white/50 mr-1 select-none">
-            <span className="size-1.5 rounded-full bg-[#ff3b1f] mr-2 inline-block" />
+            <span className="size-1.5 rounded-full bg-[#ff3b1f] mr-2 inline-block animate-pulse" />
             <NumberFlow
               value={selectedIndex + 1}
               format={{ minimumIntegerDigits: 2 }}
@@ -153,119 +173,250 @@ export function ProjectsSection() {
         ref={emblaRef}
       >
         <div className="flex touch-pan-y -ml-6 md:-ml-8">
-          {FEATURED.map((project, i) => (
-            <div
-              key={project.title}
-              className="min-w-0 flex-[0_0_100%] pl-6 md:pl-8"
-            >
-              <motion.div
-                animate={{
-                  scale: selectedIndex === i ? 1 : 0.965,
-                  opacity: selectedIndex === i ? 1 : 0.45,
-                }}
-                whileTap={{ scale: 0.99 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 md:p-8 lg:p-10 transition-colors duration-300 hover:border-white/20"
+          {FEATURED.map((project, i) => {
+            const currentModeIdx = activeModes[i] ?? 0;
+            const currentMode = project.modes[currentModeIdx] ?? project.modes[0];
+
+            return (
+              <div
+                key={project.title}
+                className="min-w-0 flex-[0_0_100%] pl-6 md:pl-8"
               >
-                <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-center">
-                  {/* Left Column — Context & Details */}
-                  <div className="lg:col-span-6 flex flex-col justify-between h-full">
-                    <div>
-                      {/* Stroked Numeral + Year tag + Status badge */}
-                      <div className="flex items-center gap-3">
-                        <span className="font-tech text-outline font-black text-2xl md:text-3xl tracking-tight leading-none select-none">
-                          {project.index}
-                        </span>
-                        <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50">
-                          ( {project.year} )
-                        </span>
-                        <span className="inline-block rounded-sm bg-[#ff3b1f]/15 border border-[#ff3b1f]/20 px-2.5 py-0.5 font-tech text-[10.5px] uppercase tracking-[0.14em] text-[#ff3b1f] font-semibold">
-                          {project.status}
-                        </span>
-                      </div>
-
-                      <h3 className="mt-4 text-[clamp(1.8rem,3.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-white">
-                        {project.title}
-                      </h3>
-
-                      <p className="mt-4 max-w-[48ch] text-[14.5px] leading-[1.75] text-white/65 [text-wrap:pretty]">
-                        {project.desc}
-                      </p>
-
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {project.tags.split(" · ").map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 font-tech text-[11px] uppercase tracking-[0.14em] text-white/75 transition-colors hover:border-[#ff3b1f]/40 hover:text-white"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-between">
-                      <a
-                        href={project.href}
-                        target={project.href.startsWith("http") ? "_blank" : undefined}
-                        rel={project.href.startsWith("http") ? "noreferrer" : undefined}
-                        className="group/btn inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black transition-all duration-200 hover:scale-[1.02] hover:bg-[#ff3b1f] hover:text-white"
-                      >
-                        <span>Explore Project</span>
-                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </a>
-
-                      <span className="hidden sm:inline-flex items-center gap-2 font-tech text-[11px] text-white/35 uppercase tracking-[0.18em]">
-                        <span>←</span>
-                        <span>Drag / Swipe</span>
-                        <span>→</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Right Column — 3D Parallax Tilt Media Container */}
-                  <div className="lg:col-span-6">
-                    <Tilt
-                      tiltMaxAngleX={4}
-                      tiltMaxAngleY={4}
-                      perspective={1400}
-                      glareEnable={true}
-                      glareMaxOpacity={0.06}
-                      glareColor="#ffffff"
-                      glarePosition="all"
-                      glareBorderRadius="1rem"
-                      scale={1.01}
-                      transitionSpeed={1000}
-                      className="w-full h-full"
-                    >
-                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4 group-hover:border-white/20 transition-colors duration-300">
-                        {project.image ? (
-                          <div className="relative h-full w-full overflow-hidden rounded-xl">
-                            <Image
-                              src={project.image}
-                              alt={project.imageAlt ?? project.title}
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                              priority={i === 0}
-                              className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
-                                project.imageFit === "contain" ? "object-contain" : "object-cover"
-                              }`}
-                            />
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-center">
-                            <span className="font-black text-6xl text-white/10">
-                              {project.title.charAt(0)}
+                <motion.div
+                  animate={{
+                    scale: selectedIndex === i ? 1 : 0.97,
+                    opacity: selectedIndex === i ? 1 : 0.45,
+                  }}
+                  whileTap={{ scale: 0.995 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="group rounded-3xl border border-white/[0.08] bg-[#141414] p-6 sm:p-8 md:p-10 lg:p-12 transition-colors duration-300 hover:border-white/20"
+                >
+                  <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12 items-start">
+                    {/* Left Column — Context, Interactive Toggle & Decision Triad */}
+                    <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-6">
+                      <div>
+                        {/* Top Meta: Numeral + Year + Status + Interactive Mode Switcher */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] pb-5">
+                          <div className="flex items-center gap-3">
+                            <span className="font-tech text-outline font-black text-2xl md:text-3xl tracking-tight leading-none select-none">
+                              {project.index}
+                            </span>
+                            <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50">
+                              ( {project.year} )
+                            </span>
+                            <span className="inline-block rounded-sm bg-[#ff3b1f]/15 border border-[#ff3b1f]/20 px-2.5 py-0.5 font-tech text-[10.5px] uppercase tracking-[0.14em] text-[#ff3b1f] font-semibold">
+                              {project.status}
                             </span>
                           </div>
-                        )}
+
+                          {/* Daksh-inspired Interactive Segmented Toggle */}
+                          <div className="inline-flex items-center rounded-full border border-white/15 bg-black/60 p-1 font-tech text-[11px] uppercase tracking-[0.12em]">
+                            {project.modes.map((mode, mIdx) => {
+                              const isActive = currentModeIdx === mIdx;
+                              return (
+                                <button
+                                  key={mode.id}
+                                  type="button"
+                                  onClick={() => setMode(i, mIdx)}
+                                  className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                                    isActive
+                                      ? "bg-white text-black font-bold shadow-sm"
+                                      : "bg-transparent text-white/75 hover:text-white hover:bg-white/10"
+                                  }`}
+                                >
+                                  {mode.label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Title & Core Overview */}
+                        <h3 className="mt-5 text-[clamp(1.85rem,3.4vw,3.1rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-white">
+                          {project.title}
+                        </h3>
+
+                        <p className="mt-3 text-[14.5px] leading-[1.75] text-white/65 [text-wrap:pretty]">
+                          {project.desc}
+                        </p>
+
+                        {/* Interactive Telemetry & Mode Surface */}
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={currentMode.id}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="mt-6 rounded-2xl border border-white/[0.08] bg-[#0c0c0c]/80 p-4 sm:p-5"
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] pb-3">
+                              <div className="flex items-center gap-2">
+                                <Activity className="size-3.5 text-[#ff3b1f]" />
+                                <span className="font-tech text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90">
+                                  {currentMode.badge}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 font-tech text-[11px] uppercase tracking-wider text-white/50">
+                                <span>{currentMode.metricLabel}:</span>
+                                <span className="font-bold text-[#ff3b1f]">
+                                  {currentMode.metricValue}
+                                </span>
+                              </div>
+                            </div>
+
+                            <p className="mt-3 text-[13px] text-white/70 italic">
+                              &ldquo;{currentMode.headline}&rdquo;
+                            </p>
+
+                            {/* Spec Sheet Grid */}
+                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-3 border-t border-white/[0.04]">
+                              {currentMode.specs.map((spec) => (
+                                <div key={spec.key} className="flex flex-col">
+                                  <span className="font-tech text-[9.5px] uppercase tracking-[0.14em] text-white/40">
+                                    {spec.key}
+                                  </span>
+                                  <span className="font-tech text-[11px] text-white/85 font-medium truncate">
+                                    {spec.val}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Pipeline Trace Diagram */}
+                            <div className="mt-3.5 pt-2.5 border-t border-white/[0.04] flex items-center gap-2 text-[10.5px] font-tech text-white/50 overflow-x-auto whitespace-nowrap">
+                              <span className="text-[#ff3b1f] uppercase tracking-wider font-semibold">
+                                {currentMode.diagramLabel}:
+                              </span>
+                              <span>{currentMode.diagramValue}</span>
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
+
+                        {/* ================= DECISION TRIAD (Constraint → Decision → Result) */}
+                        <div className="mt-6 rounded-2xl border border-white/[0.08] bg-[#101010] p-4 sm:p-5">
+                          <div className="flex items-center gap-2 pb-3 border-b border-white/[0.06]">
+                            <Layers className="size-3.5 text-[#ff3b1f]" />
+                            <span className="font-tech text-[11px] uppercase tracking-[0.18em] text-white/80 font-semibold">
+                              Architecture &amp; Engineering Decisions
+                            </span>
+                          </div>
+
+                          <div className="mt-3.5 grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                            {/* Constraint */}
+                            <div className="flex flex-col">
+                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-amber-400 font-semibold mb-1">
+                                Constraint
+                              </span>
+                              <p className="text-[12.5px] leading-[1.6] text-white/60">
+                                {project.decisionTriad.constraint}
+                              </p>
+                            </div>
+
+                            {/* Decision */}
+                            <div className="flex flex-col">
+                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-cyan-400 font-semibold mb-1">
+                                Decision
+                              </span>
+                              <p className="text-[12.5px] leading-[1.6] text-white/60">
+                                {project.decisionTriad.decision}
+                              </p>
+                            </div>
+
+                            {/* Result */}
+                            <div className="flex flex-col">
+                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-emerald-400 font-semibold mb-1">
+                                Shipped Result
+                              </span>
+                              <p className="text-[12.5px] leading-[1.6] text-white/60">
+                                {project.decisionTriad.result}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Tech Tags */}
+                        <div className="mt-6 flex flex-wrap gap-2">
+                          {project.tags.split(" · ").map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 font-tech text-[11px] uppercase tracking-[0.14em] text-white/75 transition-colors hover:border-[#ff3b1f]/40 hover:text-white"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </Tilt>
+
+                      {/* Explore Action & Drag Hint */}
+                      <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between">
+                        <a
+                          href={project.href}
+                          target={project.href.startsWith("http") ? "_blank" : undefined}
+                          rel={project.href.startsWith("http") ? "noreferrer" : undefined}
+                          className="group/btn inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[13px] font-semibold text-black transition-all duration-200 hover:scale-[1.02] hover:bg-[#ff3b1f] hover:text-white"
+                        >
+                          <span>Explore Project</span>
+                          <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                        </a>
+
+                        <span className="hidden sm:inline-flex items-center gap-2 font-tech text-[11px] text-white/35 uppercase tracking-[0.18em]">
+                          <span>←</span>
+                          <span>Drag / Swipe</span>
+                          <span>→</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right Column — 3D Parallax Tilt Media Container */}
+                    <div className="lg:col-span-5 h-full">
+                      <Tilt
+                        tiltMaxAngleX={4}
+                        tiltMaxAngleY={4}
+                        perspective={1400}
+                        glareEnable={true}
+                        glareMaxOpacity={0.06}
+                        glareColor="#ffffff"
+                        glarePosition="all"
+                        glareBorderRadius="1rem"
+                        scale={1.01}
+                        transitionSpeed={1000}
+                        className="w-full h-full"
+                      >
+                        <div className="relative aspect-[16/11] lg:aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/[0.08] flex items-center justify-center p-3 md:p-4 group-hover:border-white/20 transition-colors duration-300">
+                          {project.image ? (
+                            <div className="relative h-full w-full overflow-hidden rounded-xl">
+                              <Image
+                                src={project.image}
+                                alt={project.imageAlt ?? project.title}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                                priority={i === 0}
+                                className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
+                                  project.imageFit === "contain" ? "object-contain" : "object-cover"
+                                }`}
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center">
+                              <span className="font-black text-6xl text-white/10">
+                                {project.title.charAt(0)}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Subtle corner tech coordinate overlay */}
+                          <div className="pointer-events-none absolute bottom-3 right-3 font-tech text-[9.5px] uppercase tracking-[0.16em] text-white/40 bg-black/60 px-2 py-1 rounded backdrop-blur-sm border border-white/10">
+                            CAM_STREAM_0{i + 1}
+                          </div>
+                        </div>
+                      </Tilt>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            </div>
-          ))}
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
