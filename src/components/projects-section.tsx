@@ -144,11 +144,10 @@ export function ProjectsSection() {
             onClick={scrollPrev}
             disabled={!canPrev}
             aria-label="Previous project"
-            className={`flex size-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-95 ${
-              canPrev
-                ? "border-white/20 bg-white/5 text-white hover:border-[#ff3b1f] hover:bg-[#ff3b1f]/10 hover:text-[#ff3b1f]"
-                : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
-            }`}
+            className={`flex size-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-95 ${canPrev
+              ? "border-white/20 bg-white/5 text-white hover:border-[#ff3b1f] hover:bg-[#ff3b1f]/10 hover:text-[#ff3b1f]"
+              : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
+              }`}
           >
             <ChevronLeft className="size-4" />
           </button>
@@ -156,11 +155,10 @@ export function ProjectsSection() {
             onClick={scrollNext}
             disabled={!canNext}
             aria-label="Next project"
-            className={`flex size-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-95 ${
-              canNext
-                ? "border-white/20 bg-white/5 text-white hover:border-[#ff3b1f] hover:bg-[#ff3b1f]/10 hover:text-[#ff3b1f]"
-                : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
-            }`}
+            className={`flex size-10 items-center justify-center rounded-full border transition-all duration-200 active:scale-95 ${canNext
+              ? "border-white/20 bg-white/5 text-white hover:border-[#ff3b1f] hover:bg-[#ff3b1f]/10 hover:text-[#ff3b1f]"
+              : "border-white/5 bg-transparent text-white/20 cursor-not-allowed"
+              }`}
           >
             <ChevronRight className="size-4" />
           </button>
@@ -210,7 +208,7 @@ export function ProjectsSection() {
                           </div>
 
                           {/* Daksh-inspired Interactive Segmented Toggle */}
-                          <div className="inline-flex items-center rounded-full border border-white/15 bg-black/60 p-1 font-tech text-[11px] uppercase tracking-[0.12em]">
+                          <div className="inline-flex items-center rounded-full border border-white/15 bg-black/40 p-1 font-tech text-[11px] uppercase tracking-[0.12em]">
                             {project.modes.map((mode, mIdx) => {
                               const isActive = currentModeIdx === mIdx;
                               return (
@@ -218,13 +216,19 @@ export function ProjectsSection() {
                                   key={mode.id}
                                   type="button"
                                   onClick={() => setMode(i, mIdx)}
-                                  className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                                    isActive
-                                      ? "bg-white text-black font-bold shadow-sm"
-                                      : "bg-transparent text-white/75 hover:text-white hover:bg-white/10"
-                                  }`}
+                                  className={`relative px-3 py-1.5 rounded-full transition-colors duration-200 cursor-pointer ${isActive
+                                    ? "text-black font-semibold"
+                                    : "text-white/60 hover:text-white"
+                                    }`}
                                 >
-                                  {mode.label}
+                                  {isActive && (
+                                    <motion.div
+                                      layoutId={`active-mode-pill-${i}`}
+                                      className="absolute inset-0 rounded-full bg-white shadow-sm"
+                                      transition={{ type: "spring", stiffness: 450, damping: 32 }}
+                                    />
+                                  )}
+                                  <span className="relative z-10">{mode.label}</span>
                                 </button>
                               );
                             })}
@@ -305,8 +309,8 @@ export function ProjectsSection() {
                           <div className="mt-3.5 grid grid-cols-1 md:grid-cols-3 gap-3.5">
                             {/* Constraint */}
                             <div className="flex flex-col">
-                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-amber-400 font-semibold mb-1">
-                                Constraint
+                              <span className="font-tech text-[10px] uppercase tracking-[0.16em] text-amber-400 font-semibold mb-1">
+                                01 / Constraint
                               </span>
                               <p className="text-[12.5px] leading-[1.6] text-white/60">
                                 {project.decisionTriad.constraint}
@@ -315,8 +319,8 @@ export function ProjectsSection() {
 
                             {/* Decision */}
                             <div className="flex flex-col">
-                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-cyan-400 font-semibold mb-1">
-                                Decision
+                              <span className="font-tech text-[10px] uppercase tracking-[0.16em] text-cyan-400 font-semibold mb-1">
+                                02 / Decision
                               </span>
                               <p className="text-[12.5px] leading-[1.6] text-white/60">
                                 {project.decisionTriad.decision}
@@ -325,8 +329,8 @@ export function ProjectsSection() {
 
                             {/* Result */}
                             <div className="flex flex-col">
-                              <span className="font-tech text-[10.5px] uppercase tracking-[0.14em] text-emerald-400 font-semibold mb-1">
-                                Shipped Result
+                              <span className="font-tech text-[10px] uppercase tracking-[0.16em] text-emerald-400 font-semibold mb-1">
+                                03 / Result
                               </span>
                               <p className="text-[12.5px] leading-[1.6] text-white/60">
                                 {project.decisionTriad.result}
@@ -392,9 +396,8 @@ export function ProjectsSection() {
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                                 priority={i === 0}
-                                className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${
-                                  project.imageFit === "contain" ? "object-contain" : "object-cover"
-                                }`}
+                                className={`grayscale contrast-[1.04] transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:grayscale-0 ${project.imageFit === "contain" ? "object-contain" : "object-cover"
+                                  }`}
                               />
                             </div>
                           ) : (

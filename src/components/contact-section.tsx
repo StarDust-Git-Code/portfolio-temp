@@ -67,7 +67,7 @@ export function ContactSection() {
             <span>Open for Hardware Collaborations &amp; Ventures</span>
           </div>
 
-          <h2 className="text-[clamp(1.95rem,4.8vw,4.6rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance]">
+          <h2 className="text-[clamp(2.2rem,5.4vw,5rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance]">
             Join me to build something{" "}
             <span className="text-[#ff3b1f]">distinctive.</span>
           </h2>
@@ -111,11 +111,10 @@ export function ContactSection() {
           <button
             type="button"
             onClick={handleCopyEmail}
-            className={`inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[13.5px] font-medium transition-all duration-200 active:scale-[0.98] cursor-pointer ${
-              copied
+            className={`inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[13.5px] font-medium transition-all duration-200 active:scale-[0.98] cursor-pointer ${copied
                 ? "border-[#ff3b1f]/60 bg-[#ff3b1f]/10 text-[#ff3b1f]"
                 : "border-white/20 bg-white/5 text-white hover:border-white/50 hover:bg-white/10"
-            }`}
+              }`}
             aria-label={`Copy email: ${PROFILE.email}`}
           >
             {copied ? (

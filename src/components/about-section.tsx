@@ -49,17 +49,14 @@ export function AboutSection() {
       />
 
       {/* ================= STATEMENT */}
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
+      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
         <div className="lg:col-span-8">
           <h2
-            aria-label="I build where code meets software."
-            className="text-[clamp(2.2rem,4.2vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance]"
+            aria-label="I build where code meets software — connecting embedded systems, edge AI and Android."
+            className="text-[clamp(2.2rem,4.4vw,4.2rem)] font-extrabold leading-[1.18] tracking-[-0.03em] text-white [text-wrap:balance]"
           >
-            <WordHighlightText text="I build where code meets software." />
+            <WordHighlightText text="I build where code meets software — connecting embedded systems, edge AI and Android." />
           </h2>
-          <p className="mt-4 text-[clamp(1.15rem,2vw,1.5rem)] text-white/70 font-medium leading-[1.45] max-w-2xl [text-wrap:pretty]">
-            Connecting embedded systems, edge AI, and Android at the hardware boundary.
-          </p>
         </div>
 
         <ScrollReveal className="lg:col-span-4 lg:pt-3" delay={80}>
@@ -91,9 +88,14 @@ export function AboutSection() {
 
       {/* ================= FROM THE WORKBENCH */}
       <div className="mt-28 md:mt-36">
+        <ScrollReveal>
+          <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
+            Active Bring-ups &amp; Labs
+          </span>
+        </ScrollReveal>
         <HeadingReveal
           text="From the Workbench"
-          headingClassName="text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
+          headingClassName="mt-2 text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
         />
         <ScrollReveal delay={60}>
           <p className="mt-2 text-[14px] text-white/50 max-w-xl [text-wrap:pretty]">
@@ -205,9 +207,14 @@ export function AboutSection() {
 
       {/* ================= RECOGNITION & MILESTONES */}
       <div className="mt-28 md:mt-36">
+        <ScrollReveal>
+          <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
+            Recognition &amp; Milestones
+          </span>
+        </ScrollReveal>
         <HeadingReveal
           text="Recognition & Milestones"
-          headingClassName="text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
+          headingClassName="mt-2 text-[clamp(1.6rem,2.8vw,2.4rem)] font-bold tracking-[-0.02em] text-white"
         />
         <ScrollReveal delay={60}>
           <p className="mt-2 text-[14px] text-white/50 max-w-xl [text-wrap:pretty]">
@@ -240,11 +247,10 @@ export function AboutSection() {
                     <div className="md:col-span-3 flex items-center gap-2.5">
                       <span className="font-tech text-[12px] text-white/45">2026</span>
                       <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-tech text-[10.5px] font-semibold uppercase tracking-wider ${
-                          item.highlight
-                            ? "bg-[#ff3b1f]/15 text-[#ff3b1f] border border-[#ff3b1f]/30"
-                            : "bg-white/[0.06] text-white/75 border border-white/[0.08]"
-                        }`}
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-tech text-[10.5px] font-semibold uppercase tracking-wider ${item.highlight
+                          ? "bg-[#ff3b1f]/15 text-[#ff3b1f] border border-[#ff3b1f]/30"
+                          : "bg-white/[0.06] text-white/75 border border-white/[0.08]"
+                          }`}
                       >
                         {item.result} Place
                       </span>

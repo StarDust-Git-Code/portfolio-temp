@@ -295,3 +295,45 @@
     transition: none;
   }
 }
+
+/* =========================================================================
+ * Daksh Gajjar Design Tokens & Replicated System
+ * ========================================================================= */
+:root {
+  --daksh-black: #050505;
+  --daksh-ink: #11100f;
+  --daksh-ivory: #f1eee6;
+  --daksh-muted: #aaa79f;
+  --daksh-signal: #ff3b12;
+  --daksh-line: rgba(241, 238, 230, 0.14);
+  --daksh-thread-width: 2.2px;
+}
+
+.daksh-canvas {
+  background-color: var(--daksh-black);
+  color: var(--daksh-ivory);
+}
+
+.daksh-kicker {
+  font-family: var(--font-tech);
+  font-size: clamp(0.68rem, 0.8vw, 0.82rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--daksh-signal);
+}
+
+.daksh-heading-massive {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 100, "wght" 800;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.daksh-lead {
+  font-family: var(--font-tech);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  color: var(--daksh-muted);
+}
