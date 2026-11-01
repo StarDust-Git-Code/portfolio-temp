@@ -210,21 +210,18 @@ export function DakshProjects() {
             {/* Top Bar: Kicker + Description */}
             <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6 border-b border-[#f1eee6]/10 pb-6">
               <div>
-                <p className="font-tech text-xs uppercase tracking-[0.2em] text-[#ff3b12] font-semibold">
-                  {project.num} / {project.kicker}
-                </p>
-                <h3 className="mt-2 text-[clamp(1.8rem,3.4vw,3.2rem)] font-extrabold uppercase tracking-tight text-[#f1eee6]">
+                <h3 className="text-[clamp(1.8rem,3.4vw,3.2rem)] font-extrabold uppercase tracking-tight text-[#f1eee6]">
                   {project.title}
                 </h3>
+                <p className="mt-1 font-tech text-xs uppercase tracking-[0.16em] text-[#ff3b12] font-semibold">
+                  {project.kicker} · {project.award}
+                </p>
               </div>
 
               <div className="max-w-md">
                 <p className="font-tech text-sm leading-relaxed text-[#aaa79f] [text-wrap:pretty]">
                   {project.desc}
                 </p>
-                <span className="mt-2 inline-block font-tech text-[11px] uppercase tracking-wider text-[#ff3b12]">
-                  {project.award}
-                </span>
               </div>
             </div>
 

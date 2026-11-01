@@ -50,17 +50,14 @@ export function DakshCapabilities() {
   return (
     <div id="capabilities" className="relative z-20">
       {/* ================= PRACTICE INTRO (Daksh Practice Intro Scene) */}
-      <section className="relative min-h-[90svh] bg-[#f1eee6] text-[#050505] px-[clamp(1.25rem,4vw,4rem)] py-20 md:py-28 flex flex-col justify-between overflow-hidden">
+      <section className="relative min-h-[85svh] bg-[#f1eee6] text-[#050505] px-[clamp(1.25rem,4vw,4rem)] py-20 md:py-28 flex flex-col justify-between overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto">
           {/* Left Column: Kinetic Statement */}
           <div className="lg:col-span-7">
-            <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#ff3b12] font-semibold">
-              ENGINEERING PHILOSOPHY
-            </span>
-            <h2 className="mt-4 text-[clamp(2.5rem,6.8vw,6.4rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.05em] text-[#050505] [text-wrap:balance]">
+            <h2 className="text-[clamp(2.4rem,4.8vw,4.4rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.04em] text-[#050505] max-w-3xl [text-wrap:balance]">
               From low-level silicon to intelligent agents.
             </h2>
-            <p className="mt-6 max-w-[44ch] font-tech text-[clamp(0.95rem,1.3vw,1.25rem)] leading-[1.65] text-[#55524c] [text-wrap:pretty]">
+            <p className="mt-6 max-w-[44ch] font-tech text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.65] text-[#44423c] [text-wrap:pretty]">
               I connect hardware constraints, Linux kernels and the neural models executing on top.
             </p>
           </div>
@@ -68,51 +65,51 @@ export function DakshCapabilities() {
           {/* Right Column: Architectural Schematic Diagram */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-[340px] aspect-[4/5] rounded-2xl border border-black/15 bg-white/40 p-6 flex flex-col justify-between backdrop-blur-xs">
-              <div className="flex items-center justify-between border-b border-black/10 pb-3 font-tech text-[10px] uppercase tracking-[0.16em] text-black/50">
-                <span>SIGNAL ROUTE</span>
-                <span className="text-[#ff3b12] font-semibold">16MHz CLOCK</span>
+              <div className="flex items-center justify-between border-b border-black/10 pb-3 font-tech text-[10.5px] uppercase tracking-[0.16em] text-black/70">
+                <span>Signal Route</span>
+                <span className="font-bold text-[#b52304]">16MHz Clock</span>
               </div>
 
               {/* 3 Physical Stages */}
               <div className="space-y-6 my-auto">
                 <div className="flex items-center justify-between p-3.5 rounded-xl border border-black/10 bg-white/80">
-                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-black/40">
-                    STAGE 01
+                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-black/60">
+                    Stage 1
                   </span>
                   <span className="font-tech text-xs uppercase font-bold tracking-[0.14em] text-black">
-                    SILICON &amp; SENSORS
+                    Silicon &amp; Sensors
                   </span>
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="w-[1.5px] h-6 bg-[#ff3b12]" />
+                  <div className="w-[1.5px] h-6 bg-[#b52304]" />
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 rounded-xl border border-[#ff3b12]/30 bg-[#ff3b12]/5">
-                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-[#ff3b12]">
-                    STAGE 02
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-[#b52304]/30 bg-[#b52304]/5">
+                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-[#b52304] font-bold">
+                    Stage 2
                   </span>
                   <span className="font-tech text-xs uppercase font-bold tracking-[0.14em] text-black">
-                    FIRMWARE &amp; HAL BUS
+                    Firmware &amp; HAL Bus
                   </span>
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="w-[1.5px] h-6 bg-[#ff3b12]" />
+                  <div className="w-[1.5px] h-6 bg-[#b52304]" />
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-xl border border-black/10 bg-white/80">
-                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-black/40">
-                    STAGE 03
+                  <span className="font-tech text-[10.5px] uppercase tracking-[0.16em] text-black/60">
+                    Stage 3
                   </span>
                   <span className="font-tech text-xs uppercase font-bold tracking-[0.14em] text-black">
-                    AGENTIC INTELLIGENCE
+                    Agentic Intelligence
                   </span>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-black/10 flex items-center justify-between font-tech text-[9.5px] uppercase tracking-[0.14em] text-black/40">
-                <span>DETERMINISTIC LATENCY</span>
+              <div className="pt-3 border-t border-black/10 flex items-center justify-between font-tech text-[10px] uppercase tracking-[0.14em] text-black/60">
+                <span>Deterministic Latency</span>
                 <span className="text-black font-semibold">&lt; 18ms</span>
               </div>
             </div>
@@ -125,12 +122,9 @@ export function DakshCapabilities() {
         <div className="max-w-6xl mx-auto">
           {/* Section Heading */}
           <div className="text-center md:text-left">
-            <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#ff3b12] font-semibold">
-              CAPABILITIES &amp; ARCHITECTURE
-            </span>
-            <h2 className="mt-3 text-[clamp(2.4rem,6vw,5.6rem)] font-extrabold uppercase leading-[0.94] tracking-[-0.05em] text-[#f1eee6] [text-wrap:balance]">
+            <h2 className="text-[clamp(2.2rem,4.6vw,4.4rem)] font-extrabold uppercase leading-[0.98] tracking-[-0.04em] text-[#f1eee6] max-w-4xl [text-wrap:balance]">
               I design the hardware. <br />
-              <span className="text-white/60">And the intelligence</span> <br />
+              <span className="text-white/60">And the intelligence</span>{" "}
               <span className="text-[#ff3b12]">running on it.</span>
             </h2>
           </div>

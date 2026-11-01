@@ -14,11 +14,7 @@ export function DakshAbout() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Heading & Identity */}
           <div className="lg:col-span-7">
-            <span className="font-tech text-xs uppercase tracking-[0.2em] text-[#ff3b12] font-semibold">
-              ABOUT &amp; IDENTITY
-            </span>
-
-            <h2 className="mt-4 text-[clamp(2.6rem,6.8vw,5.8rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.055em] text-[#050505] [text-wrap:balance]">
+            <h2 className="text-[clamp(2.4rem,4.8vw,4.4rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.04em] text-[#050505] max-w-3xl [text-wrap:balance]">
               Every system carries a human imprint.
             </h2>
 

@@ -33,18 +33,18 @@ export function DakshContact() {
     >
       {/* Top Beacon Status */}
       <div className="flex items-center justify-between border-b border-[#f1eee6]/10 pb-4">
-        <span className="font-tech text-xs uppercase tracking-[0.2em] text-[#ff3b12] font-semibold">
-          CONTACT &amp; COLLABORATION
+        <span className="font-tech text-xs uppercase tracking-[0.14em] text-white/50">
+          Get in touch
         </span>
         <div className="flex items-center gap-2 font-tech text-[11px] uppercase tracking-[0.14em] text-white/40">
           <Radio className="size-3 text-[#ff3b12] animate-pulse" />
-          <span>TERMINUS // ACTIVE BEACON</span>
+          <span>Active Beacon</span>
         </div>
       </div>
 
       {/* Main Centerpiece Statement */}
       <div className="my-auto py-12 max-w-4xl">
-        <h2 className="text-[clamp(2.8rem,7.5vw,7.2rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.055em] text-[#f1eee6] [text-wrap:balance]">
+        <h2 className="text-[clamp(2.4rem,5.6vw,5.2rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.04em] text-[#f1eee6] max-w-4xl [text-wrap:balance]">
           Have a problem worth <span className="text-[#ff3b12]">untangling?</span>
         </h2>
 
