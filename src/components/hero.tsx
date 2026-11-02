@@ -283,9 +283,9 @@ export function Hero() {
         className="absolute bottom-[6%] right-[4.5vw] z-30 hidden text-left md:block"
       >
         <p className="font-tech text-[11.5px] uppercase leading-[1.8] tracking-[0.14em] text-foreground/75">
-          AI · EMBEDDED · IOT
+          {"AI · EMBEDDED · IOT"}
           <br />
-          ROBOTICS · DIGITAL PRODUCTS
+          {"ROBOTICS · DIGITAL PRODUCTS"}
         </p>
         <p className="mt-3.5 font-sans text-[clamp(1.75rem,2.5vw,2.5rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground">
           Tech Innovator
@@ -316,9 +316,9 @@ export function Hero() {
         </ul>
 
         <p className="font-tech text-[10px] uppercase leading-[1.8] tracking-[0.14em] text-foreground/60 text-right">
-          AI · Embedded · IoT
+          {"AI · Embedded · IoT"}
           <br />
-          Robotics · Products
+          {"Robotics · Products"}
         </p>
       </div>
     </section>
