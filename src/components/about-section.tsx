@@ -1,9 +1,11 @@
 "use client";
 
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { HeadingReveal } from "@/components/heading-reveal";
-import { WordHighlightText } from "@/components/word-highlight-text";
 import {
   BUILD_NOTES,
   RECOGNITION,
@@ -23,52 +25,97 @@ const WORKBENCH_METADATA = [
 ];
 
 export function AboutSection() {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = headlineRef.current;
+    if (!el) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lines = el.querySelectorAll(".headline-line");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lines,
+        {
+          opacity: 0,
+          filter: "blur(12px)",
+          yPercent: 25,
+        },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          yPercent: 0,
+          duration: 1.1,
+          stagger: 0.12,
+          ease: "power2.out",
+          clearProps: "filter,transform",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="about" className="relative border-t border-white/[0.08] px-[4.5vw] py-28 md:py-36 overflow-hidden">
+    <section id="about" className="relative border-t border-white/[0.08] px-[4.5vw] py-16 md:py-24 overflow-hidden">
       {/* Ambient optical blur glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 h-[420px] w-[640px] max-w-full rounded-full bg-gradient-to-tr from-[#ff3b1f]/[0.045] via-orange-500/[0.02] to-transparent blur-[130px]"
+        className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 h-[520px] w-[800px] max-w-full rounded-full bg-gradient-to-tr from-[#ff3b1f]/[0.05] via-orange-500/[0.025] to-transparent blur-[140px]"
       />
 
-      {/* ================= SECTION LABEL */}
-      <HeadingReveal
-        text="Intro"
-        headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
-      />
+      {/* ================= STATEMENT — MONUMENTAL FULL VIEWPORT SCREEN */}
+      <div className="min-h-[calc(100svh-6rem)] flex flex-col justify-between py-6 md:py-10">
+        {/* Top Header */}
+        <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+          <HeadingReveal
+            text="Intro"
+            headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
+          />
+          <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-white/40">
+            Practice &amp; Philosophy
+          </span>
+        </div>
 
-      {/* ================= STATEMENT */}
-      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
-        <div className="lg:col-span-8">
+        {/* Monumental Headline (Matching Daksh Gajjar scale) */}
+        <div className="my-auto py-8 md:py-12">
           <h2
-            aria-label="Where software meets silicon."
-            className="text-[clamp(2.5rem,5.4vw,5rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-white [text-wrap:balance]"
+            ref={headlineRef}
+            aria-label="I build systems that think."
+            className="font-sans font-black uppercase tracking-[-0.075em] leading-[0.78] text-white select-none text-[min(clamp(3.8rem,13.8vw,12.5rem),calc((100svh-14rem)/2.35))]"
           >
-            <WordHighlightText text="Where software meets silicon." />
+            <span className="headline-line block will-change-transform">I BUILD</span>
+            <span className="headline-line block will-change-transform">SYSTEMS</span>
+            <span className="headline-line block will-change-transform">
+              THAT <span className="text-[#ff3b1f]">THINK.</span>
+            </span>
           </h2>
         </div>
 
-        <ScrollReveal className="lg:col-span-4 lg:pt-3" delay={80}>
-          <p className="text-[15px] sm:text-[16px] leading-[1.75] text-white/60 [text-wrap:pretty]">
-            Embedded engineer and systems builder based in Chennai, India. Bridging
-            low-level firmware, Linux kernels, and offline edge intelligence.
+        {/* Bottom Bar: Descriptor on Left, Scroll indicator on Right */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-6 border-t border-white/[0.08]">
+          <p className="font-tech text-[13px] md:text-[14.5px] leading-[1.75] text-white/65 max-w-[48ch] [text-wrap:pretty]">
+            Where software meets silicon. Embedded engineer and systems builder in Chennai, India. Bridging low-level firmware, Linux kernels, and offline edge intelligence.
           </p>
-          <div className="mt-6 flex items-center gap-4">
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 text-[13px] font-medium text-white/80 transition-colors hover:text-white"
-            >
-              <span className="underline decoration-white/20 underline-offset-4 group-hover:decoration-white">
-                Explore selected work
-              </span>
-              <ArrowDown className="size-3.5 text-[#ff3b1f] transition-transform duration-200 group-hover:translate-y-0.5" />
-            </a>
-          </div>
-        </ScrollReveal>
+          <a
+            href="#workbench"
+            className="group inline-flex items-center gap-2 font-tech text-[11.5px] uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors self-start md:self-auto"
+          >
+            <span>Scroll to explore</span>
+            <span className="text-[#ff3b1f] transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+          </a>
+        </div>
       </div>
 
       {/* ================= FROM THE WORKBENCH */}
-      <div className="mt-28 md:mt-36">
+      <div id="workbench" className="mt-28 md:mt-36">
         <ScrollReveal>
           <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold">
             Active Bring-ups &amp; Labs
