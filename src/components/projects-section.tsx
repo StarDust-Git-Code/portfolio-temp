@@ -6,10 +6,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import NumberFlow from "@number-flow/react";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
-import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { HeadingReveal } from "@/components/heading-reveal";
-import { FEATURED, INDEX_ROWS, GITHUB_PROFILE } from "@/data/projects";
+import { FEATURED, GITHUB_PROFILE } from "@/data/projects";
 
 export function ProjectsSection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -72,8 +72,6 @@ export function ProjectsSection() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [scrollPrev, scrollNext]);
-
-  const archiveProjects = INDEX_ROWS;
 
   return (
     <section id="work" className="border-t border-white/[0.08] px-[4.5vw] py-24 md:py-32">
@@ -283,157 +281,6 @@ export function ProjectsSection() {
             className="h-2 rounded-full cursor-pointer hover:bg-white/40 transition-colors"
           />
         ))}
-      </div>
-
-      {/* ================= EDITORIAL ARCHIVE INDEX (All other builds) */}
-      <div className="mt-20 md:mt-28">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/[0.08] pb-4">
-          <HeadingReveal
-            text="Project Archive & Ports"
-            headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-white/50 font-semibold"
-          />
-          <span className="font-tech text-[11px] uppercase tracking-[0.2em] text-white/40">
-            60+ Repositories
-          </span>
-        </div>
-
-        {/* Desktop column header */}
-        <div className="hidden md:grid md:grid-cols-12 items-center gap-4 py-3 px-3 text-[11px] font-tech uppercase tracking-[0.18em] text-white/40 border-b border-white/[0.06] mt-4 select-none">
-          <div className="col-span-1">#</div>
-          <div className="col-span-3">Project</div>
-          <div className="col-span-4">Overview</div>
-          <div className="col-span-2">Architecture</div>
-          <div className="col-span-1 text-right">Year</div>
-          <div className="col-span-1 text-right">Action</div>
-        </div>
-
-        <ul className="divide-y divide-white/[0.06]" role="list">
-          {archiveProjects.map((row, i) => (
-            <li key={row.name}>
-              <ScrollReveal delay={Math.min(i * 35, 200)}>
-                <a
-                  href={row.href}
-                  target={row.href.startsWith("http") ? "_blank" : undefined}
-                  rel={row.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="group block transition-colors duration-200 hover:bg-white/[0.02] rounded-lg"
-                >
-                  {/* Mobile layout (< 768px) */}
-                  <div className="flex md:hidden flex-col gap-2.5 py-4 px-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="font-tech text-outline font-black text-xl leading-none select-none">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-[15px] font-bold text-white group-hover:text-[#ff3b1f] transition-colors">
-                          {row.name}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-tech text-[11px] uppercase tracking-wider text-white/45">
-                          ( {row.year} )
-                        </span>
-                        <ArrowUpRight className="size-4 text-white/40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#ff3b1f]" />
-                      </div>
-                    </div>
-
-                    <p className="text-[13px] leading-relaxed text-white/60">
-                      {row.desc}
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
-                      {row.tech.split(" · ").map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 font-tech text-[10px] uppercase tracking-wider text-white/70"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                      {row.live ? (
-                        <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 font-tech text-[10px] uppercase tracking-wider text-emerald-400 border border-emerald-500/20">
-                          <span className="size-1 rounded-full bg-emerald-400" />
-                          Live
-                        </span>
-                      ) : null}
-                      {row.submission ? (
-                        <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-[#ff3b1f]/10 px-2 py-0.5 font-tech text-[10px] uppercase tracking-wider text-[#ff3b1f] border border-[#ff3b1f]/20">
-                          {row.submission}
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  {/* Desktop layout (>= 768px) */}
-                  <div className="hidden md:grid md:grid-cols-12 items-center gap-4 py-4 px-3">
-                    <div className="col-span-1">
-                      <span className="font-tech text-outline font-black text-2xl leading-none select-none">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    <div className="col-span-3 flex items-center gap-2.5">
-                      <span className="text-[15px] font-bold text-white group-hover:text-[#ff3b1f] transition-colors">
-                        {row.name}
-                      </span>
-                      {row.live ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 font-tech text-[10px] uppercase tracking-wider text-emerald-400 border border-emerald-500/20">
-                          <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          Live
-                        </span>
-                      ) : null}
-                      {row.submission ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-[#ff3b1f]/10 px-2 py-0.5 font-tech text-[10px] uppercase tracking-wider text-[#ff3b1f] border border-[#ff3b1f]/20">
-                          {row.submission}
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <div className="col-span-4">
-                      <p className="text-[13px] leading-relaxed text-white/55 line-clamp-1 group-hover:text-white/75 transition-colors">
-                        {row.desc}
-                      </p>
-                    </div>
-
-                    <div className="col-span-2 flex flex-wrap gap-1.5">
-                      {row.tech.split(" · ").slice(0, 2).map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-tech text-[10px] uppercase tracking-[0.1em] text-white/70"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="col-span-1 text-right">
-                      <span className="font-tech text-[11.5px] uppercase tracking-[0.14em] text-white/45">
-                        ( {row.year} )
-                      </span>
-                    </div>
-
-                    <div className="col-span-1 flex justify-end">
-                      <span className="flex size-7 items-center justify-center rounded-full border border-white/10 text-white/40 transition-all duration-200 group-hover:border-[#ff3b1f] group-hover:bg-[#ff3b1f]/10 group-hover:text-[#ff3b1f]">
-                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </ScrollReveal>
-            </li>
-          ))}
-        </ul>
-
-        <ScrollReveal className="mt-12 text-center">
-          <a
-            href={`${GITHUB_PROFILE}?tab=repositories`}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 px-7 py-3 text-[13px] text-white/80 transition-all hover:border-[#ff3b1f]/60 hover:bg-[#ff3b1f]/10 hover:text-white"
-          >
-            <span>View all 60+ repositories on GitHub</span>
-            <ArrowRight className="size-4 text-[#ff3b1f] transition-transform duration-200 group-hover:translate-x-1" />
-          </a>
-        </ScrollReveal>
       </div>
     </section>
   );
