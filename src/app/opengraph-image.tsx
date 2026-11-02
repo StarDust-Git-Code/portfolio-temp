@@ -115,7 +115,7 @@ export default function OpengraphImage() {
               opacity: 0.65,
             }}
           >
-            {"// EDGE AI · EMBEDDED · IOT · ANDROID · LINUX"}
+            {"EDGE AI · EMBEDDED · IOT · ANDROID · LINUX"}
           </div>
           <div style={{ fontSize: 20, color: "#0a0a0a", opacity: 0.65 }}>
             Embedded Systems &amp; Edge AI

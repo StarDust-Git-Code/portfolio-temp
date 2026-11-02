@@ -47,7 +47,7 @@ export function ContributionGraph({ username }: { username: string }) {
     <div className="mt-16 border-t border-foreground/10 pt-10">
       <div className="flex items-baseline justify-between">
         <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-foreground/50">
-          {"// Alive & shipping"}
+          Alive &amp; shipping
         </span>
         {days ? (
           <span className="font-tech text-[12px] uppercase tracking-[0.2em] text-foreground/50">

@@ -43,18 +43,28 @@ export function HeadingReveal({
       const parts = splitEl.querySelectorAll(type === "chars" ? ".char" : ".word");
 
       const ctx = gsap.context(() => {
-        gsap.from(parts, {
-          yPercent: 120,
-          opacity: 0,
-          duration: 0.9,
-          stagger: type === "chars" ? 0.035 : 0.06,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            once: true,
+        gsap.fromTo(
+          parts,
+          {
+            yPercent: 40,
+            opacity: 0,
+            filter: "blur(10px)",
           },
-        });
+          {
+            yPercent: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1,
+            stagger: type === "chars" ? 0.025 : 0.06,
+            ease: "power2.out",
+            clearProps: "filter,transform",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
       });
       cleanupCtx = () => ctx.revert();
     });

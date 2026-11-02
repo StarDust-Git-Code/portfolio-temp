@@ -23,14 +23,24 @@ export function ScrollReveal({
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 36,
-        duration: 1,
-        delay: Math.min(delay, 600) / 1000,
-        ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
-      });
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 28,
+          filter: "blur(10px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 1,
+          delay: Math.min(delay, 600) / 1000,
+          ease: "power2.out",
+          clearProps: "filter,transform",
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        }
+      );
     });
 
     return () => ctx.revert();

@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# taste skill inspection artifacts
+# taste-skill test outputs
 .taste-skill/

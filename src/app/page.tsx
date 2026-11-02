@@ -1,37 +1,32 @@
-"use client";
-
-import { useRef } from "react";
 import { Hero } from "@/components/hero";
-import { DakshCapabilities } from "@/components/daksh-capabilities";
-import { DakshProjects } from "@/components/daksh-projects";
-import { DakshAbout } from "@/components/daksh-about";
-import { DakshContact } from "@/components/daksh-contact";
-import { DakshThread } from "@/components/daksh-thread";
+import { BackgroundWatermark } from "@/components/background-watermark";
+import { AboutSection } from "@/components/about-section";
+import { ProjectsSection } from "@/components/projects-section";
+import { ContactSection } from "@/components/contact-section";
+import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <main className="flex min-h-svh flex-col bg-[#050505]">
-      {/* 1st Page / Hero Section — 100% Frozen & Untouched */}
+    <main className="flex min-h-svh flex-col">
       <Hero />
+      <div className="dark relative z-20 bg-[#0c0c0c] text-[#f4f4f4] transition-colors">
+        {/* Typographic parallax watermark floating and moving in dark canvas */}
+        <BackgroundWatermark />
 
-      {/* Downstream Replicated Daksh Gajjar Sections */}
-      <div ref={containerRef} className="relative w-full">
-        {/* Continuous 2.2px Vermilion Thread */}
-        <DakshThread containerRef={containerRef} />
+        {/* Transitional Curtain: Eased gradient threshold uniting light Hero (#e2e2e1) into obsidian (#0c0c0c) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none relative z-10 -mt-px w-full overflow-hidden"
+        >
+          <div className="h-28 sm:h-36 md:h-48 w-full [background:linear-gradient(to_bottom,#e2e2e1_0%,#d5d4d1_16%,#8e8d89_42%,#3b3a38_68%,#181717_86%,#0c0c0c_100%)]" />
+          {/* Subpixel blend hairline ensuring zero rendering seam artifact */}
+          <div className="absolute inset-x-0 top-0 h-px bg-[#e2e2e1]" />
+        </div>
 
-        {/* 1. Capabilities & Philosophy (Practice Intro + Dual Orbit) */}
-        <DakshCapabilities />
-
-        {/* 2. Project Worlds (Vertical Editorial Case Studies) */}
-        <DakshProjects />
-
-        {/* 3. Imprint Story (Human Imprint & Continuous Fingerprint Coil) */}
-        <DakshAbout />
-
-        {/* 4. Contact Finale (Have a problem worth untangling? Let's talk) */}
-        <DakshContact />
+        <AboutSection />
+        <ProjectsSection />
+        <ContactSection />
+        <SiteFooter />
       </div>
     </main>
   );

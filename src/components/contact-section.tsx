@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowUpRight, MapPin, Copy, Check, Radio } from "lucide-react";
+import { ArrowUpRight, MapPin, Copy, Check } from "lucide-react";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { toast } from "sonner";
 import { ScrollReveal } from "@/components/scroll-reveal";
@@ -45,29 +45,20 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-[calc(100svh-4.5rem)] flex flex-col justify-between border-t border-white/[0.08] px-[4.5vw] pt-24 pb-8 md:pt-28 md:pb-10"
+      className="min-h-[calc(100svh-4.5rem)] flex flex-col justify-between border-t border-white/[0.08] px-[4.5vw] pt-24 pb-8 md:pt-28 md:pb-10"
     >
       {/* ================= SECTION HEADER */}
-      <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+      <div className="border-b border-white/[0.08] pb-4">
         <HeadingReveal
           text="Contact"
           headingClassName="font-tech text-[12px] uppercase tracking-[0.2em] text-[#ff3b1f] font-semibold"
         />
-        <div className="flex items-center gap-2 font-tech text-[11px] uppercase tracking-[0.16em] text-white/40">
-          <Radio className="size-3 text-[#ff3b1f] animate-pulse" />
-          <span>TERMINUS · ACTIVE BEACON</span>
-        </div>
       </div>
 
       {/* ================= MAIN CONTENT (Vertically centered) */}
       <div className="my-auto py-10 md:py-14">
         <ScrollReveal>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#ff3b1f]/30 bg-[#ff3b1f]/10 px-3.5 py-1 mb-6 font-tech text-[11px] uppercase tracking-[0.16em] text-[#ff3b1f]">
-            <span className="size-1.5 rounded-full bg-[#ff3b1f] animate-ping" />
-            <span>Open for Hardware Collaborations &amp; Ventures</span>
-          </div>
-
-          <h2 className="text-[clamp(2.2rem,5.4vw,5rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white [text-wrap:balance]">
+          <h2 className="text-[clamp(2.6rem,6.2vw,5.6rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-white [text-wrap:balance]">
             Join me to build something{" "}
             <span className="text-[#ff3b1f]">distinctive.</span>
           </h2>
@@ -75,12 +66,12 @@ export function ContactSection() {
 
         <ScrollReveal delay={80} className="mt-6 max-w-[58ch]">
           <p className="text-[15.5px] leading-[1.8] text-white/65 [text-wrap:pretty]">
-            Have an idea involving custom hardware, low-level Linux/Android bring-ups, or offline edge AI?
-            I&apos;m always open to discussing new collaborations, telemetry pipelines, and ventures.
+            Have an idea involving custom hardware, low-level Linux/Android, or offline edge AI?
+            I&apos;m always open to discussing new collaborations, bring-ups, and ventures.
           </p>
         </ScrollReveal>
 
-        {/* Big Editorial Monospace Email Anchor */}
+        {/* Big Editorial Email Anchor */}
         <ScrollReveal delay={120} className="mt-8">
           <a
             href={`mailto:${PROFILE.email}`}
@@ -111,10 +102,11 @@ export function ContactSection() {
           <button
             type="button"
             onClick={handleCopyEmail}
-            className={`inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[13.5px] font-medium transition-all duration-200 active:scale-[0.98] cursor-pointer ${copied
+            className={`inline-flex items-center gap-2 rounded-full border px-5 py-3 text-[13.5px] font-medium transition-all duration-200 active:scale-[0.98] ${
+              copied
                 ? "border-[#ff3b1f]/60 bg-[#ff3b1f]/10 text-[#ff3b1f]"
                 : "border-white/20 bg-white/5 text-white hover:border-white/50 hover:bg-white/10"
-              }`}
+            }`}
             aria-label={`Copy email: ${PROFILE.email}`}
           >
             {copied ? (
