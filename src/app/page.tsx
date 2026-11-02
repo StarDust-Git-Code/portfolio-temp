@@ -3,7 +3,6 @@ import { BackgroundWatermark } from "@/components/background-watermark";
 import { AboutSection } from "@/components/about-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { ContactSection } from "@/components/contact-section";
-import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
   return (
@@ -26,7 +25,6 @@ export default function Home() {
         <AboutSection />
         <ProjectsSection />
         <ContactSection />
-        <SiteFooter />
       </div>
     </main>
   );

@@ -158,10 +158,11 @@ export function Hero() {
             src="/assets/portrait.png"
             alt=""
             fill
+            priority
             draggable={false}
             data-portrait-img
             className="object-contain object-top grayscale contrast-[1.04]"
-            sizes="100vw"
+            sizes="(max-width: 767px) 100vw, 0vw"
           />
         </div>
       </div>
